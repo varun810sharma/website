@@ -33,10 +33,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Surya Sarkar — Portfolio",
-  description:
-    "Personal portfolio of Surya Sarkar — Data & AI Engineer at Google.",
-  keywords: ["portfolio", "developer", "software engineer", "AI engineer", "data engineer"],
+  title: "Surya | Data & AI Engineer at Google",
+  description: "Data & AI Engineer currently working at Google. Pursuing a Master's in Computer Science at Georgia Tech. Specializing in Agentic AI and scalable data platforms.",
+  keywords: ["portfolio", "developer", "software engineer", "AI engineer", "data engineer", "Agentic AI", "scalable data platforms"],
+  openGraph: {
+    title: "Surya | Data & AI Engineer at Google",
+    description: "Data & AI Engineer currently working at Google. Pursuing a Master's in Computer Science at Georgia Tech.",
+    url: "https://portfolio-cfi.pages.dev/",
+    siteName: "Surya Portfolio",
+    images: [
+      {
+        url: "https://portfolio-cfi.pages.dev/avatar.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Surya Sarkar - Data & AI Engineer",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -46,6 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta name="author" content="Surya Sarkar"></meta>
       <body
         className={`${inter.variable} ${fraunces.variable} ${spaceGrotesk.variable} ${pixelFont.variable} ${geistMono.variable} antialiased`}
       >
