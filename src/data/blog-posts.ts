@@ -9,6 +9,14 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
     {
+    slug: "take-risks-to-write-a-better-brand-story",
+    title: "Take Risks to Write a Better Brand Story",
+    date: "Mar 2024",
+    readTime: "5 min read",
+    summary: "A brand is the end result of the choices it makes — not its tagline or banner. On why the best brands, from Nike to early-stage startups, take calculated risks to build stories that actually resonate.",
+    tags: ["Branding", "Marketing", "Entrepreneurship"],
+},
+{
         slug: "building-maintainme-privacy-first-calorie-tracker",
         title: "Building MaintainMe: A Privacy-First, AI-Powered Calorie Tracker",
         date: "Jan 2026",

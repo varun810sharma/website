@@ -9,7 +9,7 @@ import SearchModal from "./SearchModal";
 
 const navLinks = [
     { href: "/experience", label: "Experience" },
-    { href: "/projects", label: "Projects" },
+    // { href: "/projects", label: "Projects" },
     { href: "/blog", label: "Blog" },
 ];
 
@@ -66,9 +66,9 @@ export default function Navigation() {
                         }}
                     >
                         <div style={{ width: "24px", height: "24px", borderRadius: "50%", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#f3f4f6" }}>
-                            <img src="/avatar.jpg" alt="Surya" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                            <img src="/avatar.jpg" alt="Varun" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                         </div>
-                        <span style={{ fontFamily: "var(--font-pixel)", fontSize: "0.7rem" }}>Surya</span>
+                        <span style={{ fontFamily: "var(--font-pixel)", fontSize: "0.7rem" }}>Varun</span>
                     </Link>
 
                     {/* Desktop Nav */}

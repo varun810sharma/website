@@ -1,5 +1,3 @@
-import BasedInIndia from "./BasedInIndia";
-
 export default function Footer() {
     const year = new Date().getFullYear();
     return (
@@ -14,10 +12,8 @@ export default function Footer() {
                 borderTop: "1px solid var(--card-border)",
             }}
         >
-            <BasedInIndia />
-            <div style={{ marginTop: "2rem" }}>
-                © {year} Surya Sarkar (probably? I&apos;m not a lawyer, don&apos;t sue
-                me)
+            <div>
+                © {year} Varun Sharma
             </div>
         </footer>
     );
