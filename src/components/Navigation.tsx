@@ -8,7 +8,7 @@ import SearchModal from "./SearchModal";
 
 
 const navLinks = [
-    { href: "/experience", label: "Experience" },
+    // { href: "/experience", label: "Experience" },
     // { href: "/projects", label: "Projects" },
     { href: "/blog", label: "Blog" },
 ];

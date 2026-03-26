@@ -61,11 +61,13 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [onClose]);
 
-    // Filter results
-    const results = searchData.filter((item) =>
-        item.title.toLowerCase().includes(query.toLowerCase()) ||
-        item.type.toLowerCase().includes(query.toLowerCase())
-    );
+    // Filter results — only show when user has typed something
+    const results = query.trim().length > 0
+        ? searchData.filter((item) =>
+            item.title.toLowerCase().includes(query.toLowerCase()) ||
+            item.type.toLowerCase().includes(query.toLowerCase())
+          )
+        : [];
 
     const handleSelect = (href: string) => {
         router.push(href);
