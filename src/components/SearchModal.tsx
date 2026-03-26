@@ -61,13 +61,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [onClose]);
 
-    // Filter results — only show when user has typed something
-    const results = query.trim().length > 0
-        ? searchData.filter((item) =>
-            item.title.toLowerCase().includes(query.toLowerCase()) ||
-            item.type.toLowerCase().includes(query.toLowerCase())
-          )
-        : [];
+    // Search results disabled
+    const results: typeof searchData = [];
 
     const handleSelect = (href: string) => {
         router.push(href);
@@ -133,6 +128,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                                 placeholder="Search projects, blogs, experience..."
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
+                                autoComplete="off"
                                 style={{
                                     flex: 1,
                                     border: "none",
@@ -158,39 +154,6 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             </button>
                         </div>
 
-                        {/* Search Results */}
-                        <div style={{ maxHeight: "350px", overflowY: "auto", padding: "0.5rem" }}>
-                            {results.length > 0 ? (
-                                results.map((item) => (
-                                    <div
-                                        key={item.id}
-                                        onClick={() => handleSelect(item.href)}
-                                        style={{
-                                            padding: "0.75rem 1rem",
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            cursor: "pointer",
-                                            borderRadius: "8px",
-                                            transition: "background 0.1s",
-                                            marginBottom: "0.25rem",
-                                        }}
-                                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--button-hover)")}
-                                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-                                    >
-                                        <div style={{ fontSize: "0.55rem", fontFamily: "var(--font-pixel)", color: "var(--muted)", marginBottom: "0.4rem", fontWeight: 400, textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                                            {item.type}
-                                        </div>
-                                        <div style={{ color: "var(--foreground)", fontSize: "0.95rem", fontWeight: 500 }}>
-                                            {item.title}
-                                        </div>
-                                    </div>
-                                ))
-                            ) : (
-                                <div style={{ padding: "2rem", textAlign: "center", color: "var(--muted)" }}>
-                                    No results found for &quot;{query}&quot;
-                                </div>
-                            )}
-                        </div>
                     </motion.div>
                 </>
             )}
