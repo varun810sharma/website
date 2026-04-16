@@ -9,6 +9,14 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
     {
+        slug: "six-consumer-trends-india",
+        title: "Six Consumer Trends I Noticed in India That I Can't Stop Thinking About",
+        date: "Apr 2026",
+        readTime: "10 min read",
+        summary: "A consumer class that wants the real thing, and is increasingly able to afford it. Six observations on protein, wellness, grooming, pet care, coffee, and fitness — and why I'm bullish on India.",
+        tags: ["Consumer Trends", "India", "D2C", "Market Analysis"],
+    },
+    {
     slug: "take-risks-to-write-a-better-brand-story",
     title: "Take Risks to Write a Better Brand Story",
     date: "Mar 2024",
