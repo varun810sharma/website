@@ -134,6 +134,7 @@ export default function Home() {
           
           {/* Social buttons */}
           <motion.div
+            className="hero-buttons"
             style={{
               display: "flex",
               flexWrap: "wrap",
