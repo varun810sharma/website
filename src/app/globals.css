@@ -393,3 +393,15 @@ a:hover {
   font-weight: 700;
   color: var(--foreground);
 }
+
+/* Center all text on mobile only */
+@media (max-width: 768px) {
+  body,
+  body p,
+  body h1,
+  body h2,
+  body h3,
+  body h4 {
+    text-align: center;
+  }
+}
