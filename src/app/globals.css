@@ -405,3 +405,28 @@ a:hover {
     text-align: center;
   }
 }
+
+/* Mobile-only layout overrides */
+@media (max-width: 768px) {
+  /* Stack image above text, both centered */
+  .hero-grid {
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Center the LinkedIn / Email buttons */
+  .hero-buttons {
+    justify-content: center !important;
+  }
+
+  /* Center all body text */
+  body,
+  body p,
+  body h1,
+  body h2,
+  body h3,
+  body h4 {
+    text-align: center;
+  }
+}
