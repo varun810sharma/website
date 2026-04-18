@@ -53,6 +53,7 @@ export default function Home() {
   return (
     <PageTransition>
       <div
+        className="hero-grid"
         style={{
           display: "flex",
           alignItems: "center",
