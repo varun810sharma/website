@@ -37,9 +37,7 @@ export default function BlogPostPage() {
                         Six Consumer Trends I Noticed in India That I Can&apos;t Stop Thinking About
                     </h1>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
-                        <span className="tech-tag">Consumer Trends</span>
-                        <span className="tech-tag">India</span>
-                        <span className="tech-tag">D2C</span>
+                        <span className="tech-tag">Consumer Categories</span>
                         <span className="tech-tag">Market Analysis</span>
                     </div>
                 </div>
