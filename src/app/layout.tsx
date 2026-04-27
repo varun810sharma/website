@@ -33,11 +33,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Varun Sharma | Builder, Operator & Endurance Athelete",
+  title: "Varun Sharma | Builder, Operator & Endurance Athlete",
   description: "Builder. Operator. Endurance Athlete. Product Manager at the intersection of technology, consumer goods, and go-to-market.",
   keywords: ["portfolio", "product manager", "PMI", "consumer goods", "go-to-market", "INSEAD", "eCommerce"],
   openGraph: {
-    title: "Varun Sharma | Product Manager",
+    title: "Varun Sharma | Builder, Operator & Endurance Athlete",
     description: "Builder. Operator. Endurance Athlete. Product Manager at the intersection of technology, consumer goods, and go-to-market.",
     url: "https://varunsharma.online/",
     siteName: "Varun Sharma",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
         url: "https://YOUR-DOMAIN.com/avatar.jpg",
         width: 1200,
         height: 630,
-        alt: "Varun Sharma - Product Manager",
+        alt: "Varun Sharma - Builder, Operator & Endurance Athlete",
       },
     ],
     locale: "en_US",
