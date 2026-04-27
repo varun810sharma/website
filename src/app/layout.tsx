@@ -33,7 +33,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Varun Sharma | Product Manager",
+  title: "Varun Sharma | Builder, Operator & Endurance Athelete",
   description: "Builder. Operator. Endurance Athlete. Product Manager at the intersection of technology, consumer goods, and go-to-market.",
   keywords: ["portfolio", "product manager", "PMI", "consumer goods", "go-to-market", "INSEAD", "eCommerce"],
   openGraph: {
