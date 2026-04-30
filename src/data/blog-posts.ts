@@ -14,7 +14,7 @@ export const blogPosts: BlogPost[] = [
         date: "Apr 2026",
         readTime: "10 min read",
         summary: "A consumer class that wants the real thing, and is increasingly able to afford it. Six observations on protein, wellness, grooming, pet care, coffee, and fitness — and why I'm bullish on India.",
-        tags: ["Consumer Trends", "India", "D2C", "Market Analysis"],
+        tags: ["Consumer Trends", "Market Analysis"],
     },
     {
     slug: "take-risks-to-write-a-better-brand-story",
