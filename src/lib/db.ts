@@ -142,3 +142,38 @@ export async function markSubscriberUnsubscribed(id: number): Promise<void> {
         .bind(now, id)
         .run();
 }
+
+/**
+ * List subscribers for the admin view, newest first. Optionally filter by
+ * status. We never return the `token` to the admin page — it's a sensitive
+ * confirm/unsubscribe credential and there's no admin UX that needs it.
+ */
+export interface AdminSubscriberRow {
+    id: number;
+    email: string;
+    status: SubscriberStatus;
+    source: string | null;
+    subscribed_at: number;
+    confirmed_at: number | null;
+    unsubscribed_at: number | null;
+}
+
+export async function listSubscribers(
+    status?: SubscriberStatus
+): Promise<AdminSubscriberRow[]> {
+    const db = getDB();
+    const cols = "id, email, status, source, subscribed_at, confirmed_at, unsubscribed_at";
+    if (status) {
+        const result = await db
+            .prepare(
+                `SELECT ${cols} FROM subscribers WHERE status = ? ORDER BY subscribed_at DESC`
+            )
+            .bind(status)
+            .all<AdminSubscriberRow>();
+        return result.results ?? [];
+    }
+    const result = await db
+        .prepare(`SELECT ${cols} FROM subscribers ORDER BY subscribed_at DESC`)
+        .all<AdminSubscriberRow>();
+    return result.results ?? [];
+}
