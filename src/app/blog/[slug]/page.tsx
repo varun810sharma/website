@@ -2,8 +2,7 @@ import PageTransition from "@/components/PageTransition";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts } from "@/data/blog-posts";
-import fs from "fs";
-import path from "path";
+import { getBlogContent } from "@/lib/blog-content";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -23,15 +22,7 @@ export default async function BlogPostPage({ params }: Props) {
         notFound();
     }
 
-    let htmlContent = "";
-    try {
-        const filePath = path.join(process.cwd(), "src/content/blogs", `${slug}.html`);
-        htmlContent = fs.readFileSync(filePath, "utf8");
-    } catch (error) {
-        console.error(`Error reading blog content for ${slug}:`, error);
-        // Fallback or error message
-        htmlContent = "<p>Content not found.</p>";
-    }
+    const htmlContent = getBlogContent(slug);
 
     return (
         <PageTransition>
