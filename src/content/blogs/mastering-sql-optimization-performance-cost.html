@@ -1,0 +1,11 @@
+<p>In the era of cloud data warehouses like BigQuery, Snowflake, and Redshift, it is dangerously easy to write terribly inefficient SQL. Because the infrastructure scales so seamlessly, poorly written queries often hide behind massive compute power—until the monthly cloud invoice arrives. Let's talk about mastering SQL optimization to save both time and money.</p>
+
+<h2>Stop using SELECT *</h2>
+
+<p>This is SQL 101, but it remains the most common error I see in production pipelines. Modern analytical databases are <strong>columnar</strong>. By requesting <code>SELECT *</code>, you force the engine to scan the entire dataset across disk storage, even if your downstream logic only needs two columns. Always specify exactly the columns you need.</p>
+
+<h2>Partitioning and Clustering</h2>
+
+<p>If you are building pipelines that query time-series or sequential data, <strong>partitioning</strong> is not optional. Partitioning divides large tables into smaller, manageable chunks based on a specific column (usually a date). When a query filters by that date, the engine simply ignores all other partitions, radically dropping the bytes billed.</p>
+
+<p>Similarly, understanding and utilizing <strong>Execution Plans</strong> (using <code>EXPLAIN</code>) is the best way to determine if your joins are broadcasting efficiently or if you are accidentally forcing a full nested-loop iteration over billions of rows. Optimize your pipelines today, your CFO will thank you tomorrow!</p>
