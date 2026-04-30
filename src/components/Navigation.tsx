@@ -87,10 +87,9 @@ export default function Navigation() {
                                     key={link.href}
                                     href={link.href}
                                     style={{
-                                        fontSize: "0.875rem",
+                                        fontSize: "0.95rem",
                                         fontFamily: "var(--font-pixel)",
                                         fontWeight: 600,
-                                        textTransform: "uppercase",
                                         color: isActive ? "var(--accent-blue)" : "var(--foreground)",
                                         textDecoration: "none",
                                         position: "relative",
@@ -157,9 +156,8 @@ export default function Navigation() {
                                 borderRadius: "8px",
                                 background: "var(--card-bg)",
                                 color: "var(--muted)",
-                                fontSize: "0.875rem",
+                                fontSize: "0.95rem",
                                 fontFamily: "var(--font-pixel)",
-                                textTransform: "uppercase",
                                 cursor: "pointer",
                                 transition: "all 0.2s ease",
                             }}
@@ -253,7 +251,6 @@ export default function Navigation() {
                                 style={{
                                     fontSize: "1rem",
                                     fontFamily: "var(--font-pixel)",
-                                    textTransform: "uppercase",
                                     fontWeight: 600,
                                     color:
                                         pathname === link.href
@@ -277,7 +274,6 @@ export default function Navigation() {
                                 color: "var(--foreground)",
                                 fontSize: "1rem",
                                 fontFamily: "var(--font-pixel)",
-                                textTransform: "uppercase",
                                 fontWeight: 600,
                                 cursor: "pointer",
                             }}

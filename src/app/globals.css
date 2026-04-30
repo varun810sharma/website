@@ -72,11 +72,10 @@ a:hover {
 
 /* Section label — small caps tracking */
 .section-label {
-  font-family: var(--font-pixel), monospace;
-  font-size: 0.75rem;
+  font-family: var(--font-pixel), serif;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--muted);
   margin-bottom: 0.5rem;
 }
@@ -84,7 +83,7 @@ a:hover {
 /* Pixel Button Style — matching reference exactly */
 .pixel-btn {
   /* Pixelated font */
-  font-family: var(--font-pixel), sans-serif;
+  font-family: var(--font-pixel), serif;
   font-weight: 700;
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -204,10 +203,9 @@ a:hover {
   padding: 0.25rem 0.7rem;
   border: 1px solid var(--card-border);
   border-radius: 999px;
-  font-size: 0.7rem;
-  font-family: var(--font-pixel), monospace;
+  font-size: 0.75rem;
+  font-family: var(--font-pixel), serif;
   font-weight: 600;
-  text-transform: uppercase;
   color: var(--muted);
   background: #f9fafb;
 }
@@ -246,10 +244,10 @@ a:hover {
 
 .tech-tag {
   display: inline-block;
-  padding: 0.25rem 0.7rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  font-size: 0.75rem;
-  font-family: var(--font-pixel), monospace;
+  font-size: 0.8rem;
+  font-family: var(--font-pixel), serif;
   font-weight: 600;
   background: #eff6ff;
   color: var(--accent);

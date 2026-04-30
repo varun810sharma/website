@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces, Space_Grotesk, Nunito, Geist_Mono } from "next/font/google";
+import { Inter, Fraunces, Space_Grotesk, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -21,7 +21,9 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-const nunito = Nunito({
+// Second Fraunces instance — drives all --font-pixel usages (nav, labels, tags).
+// Keeping the variable name lets every component pick it up without changes.
+const frauncesUI = Fraunces({
   variable: "--font-pixel",
   subsets: ["latin"],
 });
@@ -62,7 +64,7 @@ export default function RootLayout({
     <html lang="en">
       <meta name="author" content="Varun Sharma"></meta>
       <body
-        className={`${inter.variable} ${fraunces.variable} ${spaceGrotesk.variable} ${nunito.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${fraunces.variable} ${spaceGrotesk.variable} ${frauncesUI.variable} ${geistMono.variable} antialiased`}
       >
         <DotMatrixCursor />
         <Navigation />
