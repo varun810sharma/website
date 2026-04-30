@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces, Space_Grotesk, Press_Start_2P, Geist_Mono } from "next/font/google";
+import { Inter, Fraunces, Space_Grotesk, Nunito, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -21,9 +21,8 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-const pixelFont = Press_Start_2P({
+const nunito = Nunito({
   variable: "--font-pixel",
-  weight: "400",
   subsets: ["latin"],
 });
 
@@ -63,7 +62,7 @@ export default function RootLayout({
     <html lang="en">
       <meta name="author" content="Varun Sharma"></meta>
       <body
-        className={`${inter.variable} ${fraunces.variable} ${spaceGrotesk.variable} ${pixelFont.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${fraunces.variable} ${spaceGrotesk.variable} ${nunito.variable} ${geistMono.variable} antialiased`}
       >
         <DotMatrixCursor />
         <Navigation />
