@@ -1,3 +1,5 @@
+import SubscribeForm from "./SubscribeForm";
+
 export default function Footer() {
     const year = new Date().getFullYear();
     return (
@@ -12,6 +14,7 @@ export default function Footer() {
                 borderTop: "1px solid var(--card-border)",
             }}
         >
+            <SubscribeForm source="footer" />
             <div>
                 © {year} Varun Sharma
             </div>

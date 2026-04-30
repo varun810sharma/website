@@ -8,5 +8,28 @@
   ],
   "observability": {
     "enabled": true
-  }
+  },
+  // Static assets (Next.js client JS, CSS, images, fonts).
+  // `run_worker_first: true` lets our Worker handle dynamic routes / API
+  // first, then fall back to the asset binding for `_next/static/*` etc.
+  // Without this block, every client JS chunk 404s and the React client
+  // components never hydrate — forms silently submit as default GETs.
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  // Newsletter: D1 (subscribers) database binding.
+  // After running `npx wrangler d1 create portfolio-newsletter`, paste the
+  // printed database_id below. See newsletter-setup.md for full instructions.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "portfolio-newsletter",
+      "database_id": "25a2581e-d8bb-4c9a-8fda-765e995bf789"
+    }
+  ]
+  // Secrets (RESEND_API_KEY, ADMIN_PASSWORD, SITE_URL) are set separately via
+  // `npx wrangler secret put ...` (production) or `.dev.vars` (local).
+  // Do NOT put them in this file — it's committed to git.
 }
