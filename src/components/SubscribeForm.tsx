@@ -16,7 +16,7 @@ type Status = "idle" | "submitting" | "done";
 export default function SubscribeForm({
     source = "footer",
     heading = "Subscribe to the newsletter",
-    description = "Occasional notes on products, markets, and what I'm building. No spam.",
+    description = "Occasional notes on products, markets, and what I'm working on. No spam.",
 }: Props) {
     const [email, setEmail] = useState("");
     const [website, setWebsite] = useState(""); // honeypot
