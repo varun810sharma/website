@@ -144,6 +144,27 @@ export async function markSubscriberUnsubscribed(id: number): Promise<void> {
 }
 
 /**
+ * Fetch active subscribers for email sending. Unlike listSubscribers(), this
+ * intentionally includes the `token` so the send pipeline can build a
+ * per-recipient unsubscribe URL. Never expose these rows to the admin UI.
+ */
+export interface SendableSubscriber {
+    id: number;
+    email: string;
+    token: string;
+}
+
+export async function listActiveSubscribersForSend(): Promise<SendableSubscriber[]> {
+    const db = getDB();
+    const result = await db
+        .prepare(
+            "SELECT id, email, token FROM subscribers WHERE status = 'active' ORDER BY subscribed_at ASC"
+        )
+        .all<SendableSubscriber>();
+    return result.results ?? [];
+}
+
+/**
  * List subscribers for the admin view, newest first. Optionally filter by
  * status. We never return the `token` to the admin page — it's a sensitive
  * confirm/unsubscribe credential and there's no admin UX that needs it.
