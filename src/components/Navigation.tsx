@@ -68,7 +68,7 @@ export default function Navigation() {
                         <div style={{ width: "24px", height: "24px", borderRadius: "50%", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#f3f4f6" }}>
                             <img src="/avatar.jpg" alt="Varun" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                         </div>
-                        <span style={{ fontFamily: "var(--font-pixel)", fontSize: "0.7rem" }}>Varun</span>
+                        <span style={{ fontFamily: "var(--font-pixel)", fontSize: "1rem", fontWeight: 700 }}>Varun</span>
                     </Link>
 
                     {/* Desktop Nav */}
@@ -87,9 +87,9 @@ export default function Navigation() {
                                     key={link.href}
                                     href={link.href}
                                     style={{
-                                        fontSize: "0.625rem",
+                                        fontSize: "0.875rem",
                                         fontFamily: "var(--font-pixel)",
-                                        fontWeight: 400,
+                                        fontWeight: 600,
                                         textTransform: "uppercase",
                                         color: isActive ? "var(--accent-blue)" : "var(--foreground)",
                                         textDecoration: "none",
@@ -157,7 +157,7 @@ export default function Navigation() {
                                 borderRadius: "8px",
                                 background: "var(--card-bg)",
                                 color: "var(--muted)",
-                                fontSize: "0.6rem",
+                                fontSize: "0.875rem",
                                 fontFamily: "var(--font-pixel)",
                                 textTransform: "uppercase",
                                 cursor: "pointer",
@@ -251,10 +251,10 @@ export default function Navigation() {
                                 href={link.href}
                                 onClick={() => setMobileOpen(false)}
                                 style={{
-                                    fontSize: "0.8rem",
+                                    fontSize: "1rem",
                                     fontFamily: "var(--font-pixel)",
                                     textTransform: "uppercase",
-                                    fontWeight: 400,
+                                    fontWeight: 600,
                                     color:
                                         pathname === link.href
                                             ? "var(--accent-blue)"
@@ -275,10 +275,10 @@ export default function Navigation() {
                                 background: "none",
                                 border: "none",
                                 color: "var(--foreground)",
-                                fontSize: "0.8rem",
+                                fontSize: "1rem",
                                 fontFamily: "var(--font-pixel)",
                                 textTransform: "uppercase",
-                                fontWeight: 400,
+                                fontWeight: 600,
                                 cursor: "pointer",
                             }}
                             onClick={() => {
