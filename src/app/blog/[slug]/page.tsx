@@ -9,7 +9,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-    return blogPosts.map((post) => ({
+    return blogPosts.filter((post) => post.published).map((post) => ({
         slug: post.slug,
     }));
 }
@@ -18,7 +18,7 @@ export default async function BlogPostPage({ params }: Props) {
     const { slug } = await params;
     const post = blogPosts.find((p) => p.slug === slug);
 
-    if (!post) {
+    if (!post || !post.published) {
         notFound();
     }
 

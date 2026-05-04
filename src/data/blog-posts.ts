@@ -5,9 +5,19 @@ export interface BlogPost {
     readTime: string;
     summary: string;
     tags: string[];
+    published: boolean; // must be true for a post to appear anywhere on the site
 }
 
 export const blogPosts: BlogPost[] = [
+    {
+        slug: "cpg-identity-crisis-transformers-acquirers",
+        title: "The Category Is Dead. Long Live the Category.",
+        date: "May 2026",
+        readTime: "13 min read",
+        summary: "Consumer identity has decoupled from product categories — and it's breaking CPG's organizing logic. On transformers, acquirers, the distribution paradox that destroys what it buys, and why the zero-alcohol shift is the clearest signal of what comes next.",
+        tags: ["CPG", "Consumer Trends", "M&A", "Strategy"],
+        published: false,
+    },
     {
         slug: "six-consumer-trends-india",
         title: "Six Consumer Trends I Noticed in India That I Can't Stop Thinking About",
@@ -15,16 +25,18 @@ export const blogPosts: BlogPost[] = [
         readTime: "10 min read",
         summary: "A consumer class that wants the real thing, and is increasingly able to afford it. Six observations on protein, wellness, grooming, pet care, coffee, and fitness — and why I'm bullish on India.",
         tags: ["Consumer Trends", "Market Analysis"],
+        published: true,
     },
     {
-    slug: "take-risks-to-write-a-better-brand-story",
-    title: "Take Risks to Write a Better Brand Story",
-    date: "Mar 2024",
-    readTime: "5 min read",
-    summary: "A brand is the end result of the choices it makes — not its tagline or banner. On why the best brands, from Nike to early-stage startups, take calculated risks to build stories that actually resonate.",
-    tags: ["Branding", "Marketing", "Entrepreneurship"],
-},
-{
+        slug: "take-risks-to-write-a-better-brand-story",
+        title: "Take Risks to Write a Better Brand Story",
+        date: "Mar 2024",
+        readTime: "5 min read",
+        summary: "A brand is the end result of the choices it makes — not its tagline or banner. On why the best brands, from Nike to early-stage startups, take calculated risks to build stories that actually resonate.",
+        tags: ["Branding", "Marketing", "Entrepreneurship"],
+        published: false,
+    },
+    {
         slug: "building-maintainme-privacy-first-calorie-tracker",
         title: "Building MaintainMe: A Privacy-First, AI-Powered Calorie Tracker",
         date: "Jan 2026",
@@ -32,6 +44,7 @@ export const blogPosts: BlogPost[] = [
         summary:
             "The launch of MaintainMe, an open-source, privacy-first calorie tracker PWA. Built to help people manage their weight without paywalls or ads, it uses Gemini AI to track meals via text or photos.",
         tags: ["Open Source", "PWA", "Gemini AI"],
+        published: false,
     },
     {
         slug: "understanding-agentic-ai-and-google-adk",
@@ -41,6 +54,7 @@ export const blogPosts: BlogPost[] = [
         summary:
             "Defining Agentic AI—systems capable of autonomous reasoning and action. An introduction to the Google Agent Development Kit (ADK) as a tool to simplify connecting LLMs to APIs and data sources for effective AI agent orchestration.",
         tags: ["Agentic AI", "LLM", "Google ADK"],
+        published: false,
     },
     {
         slug: "building-scalable-data-models-insights",
@@ -50,6 +64,7 @@ export const blogPosts: BlogPost[] = [
         summary:
             "Reflecting on a visit to the Google London office, discussing the realities of data modeling at scale, translating fuzzy business requirements into metrics, and designing future-proof schemas.",
         tags: ["Data Modeling", "Architecture", "Engineering"],
+        published: false,
     },
     {
         slug: "mastering-sql-optimization-performance-cost",
@@ -59,5 +74,6 @@ export const blogPosts: BlogPost[] = [
         summary:
             "A technical guide for data engineers on optimizing SQL queries to manage cloud costs and improve performance, covering smart data retrieval, indexing, execution plans, and partitioning.",
         tags: ["SQL", "Data Engineering", "Cloud Costs"],
+        published: false,
     },
 ];

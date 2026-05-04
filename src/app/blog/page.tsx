@@ -55,7 +55,7 @@ export default function BlogPage() {
                     initial="hidden"
                     animate="visible"
                 >
-                    {blogPosts.slice(0, 1).map((post) => (
+                    {blogPosts.filter((post) => post.published).map((post) => (
                         <motion.div
                             key={post.slug}
                             variants={itemVariants}
