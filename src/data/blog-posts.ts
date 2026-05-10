@@ -10,13 +10,13 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
     {
-        slug: "cpg-identity-crisis-transformers-acquirers",
-        title: "The Category Is Dead. Long Live the Category.",
+        slug: "after-the-category-quiet-reorganization-cpg",
+        title: "After the Category: The Quiet Reorganization of CPG",
         date: "May 2026",
-        readTime: "13 min read",
-        summary: "Consumer identity has decoupled from product categories — and it's breaking CPG's organizing logic. On transformers, acquirers, the distribution paradox that destroys what it buys, and why the zero-alcohol shift is the clearest signal of what comes next.",
+        readTime: "14 min read",
+        summary: "The categories that defined CPG for a century are dissolving into each other, and the org charts haven't caught up. On transformers, acquirers, the distribution paradox that destroys what it buys, why non-alcoholic beverages crystallize everything, and the next acquisitions worth watching.",
         tags: ["CPG", "Consumer Trends", "M&A", "Strategy"],
-        published: false,
+        published: true,
     },
     {
         slug: "six-consumer-trends-india",
