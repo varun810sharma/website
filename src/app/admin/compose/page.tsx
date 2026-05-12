@@ -12,6 +12,7 @@
 import { useState } from "react";
 import { blogPosts } from "@/data/blog-posts";
 import Link from "next/link";
+import type { MusicPick, PodcastPick } from "@/lib/resend";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -22,6 +23,29 @@ type SendResult = {
     failed: number;
     errors: Array<{ to: string; error: string }>;
     message?: string;
+};
+
+const EMPTY_MUSIC_PICK: MusicPick = { track: "", artist: "", spotifyUrl: "", why: "" };
+const EMPTY_PODCAST_PICK: PodcastPick = { show: "", episode: "", spotifyUrl: "", why: "" };
+
+function isMusicPickComplete(p: MusicPick): boolean {
+    return Boolean(p.track.trim() && p.artist.trim() && p.spotifyUrl.trim() && p.why.trim());
+}
+
+function isPodcastPickComplete(p: PodcastPick): boolean {
+    return Boolean(p.show.trim() && p.episode.trim() && p.spotifyUrl.trim() && p.why.trim());
+}
+
+/** Shared input styling used by the music + podcast rec rows. */
+const inputStyle: React.CSSProperties = {
+    padding: "0.5rem 0.65rem",
+    borderRadius: "5px",
+    border: "1px solid var(--card-border, #d1d5db)",
+    background: "var(--background, #fff)",
+    color: "var(--foreground, #1a1a1a)",
+    fontSize: "0.875rem",
+    fontFamily: "inherit",
+    boxSizing: "border-box",
 };
 
 // ---------------------------------------------------------------------------
@@ -52,6 +76,66 @@ function esc(s: string): string {
 // ---------------------------------------------------------------------------
 // Sub-components
 // ---------------------------------------------------------------------------
+
+/**
+ * Preview row used inside the email preview pane for music + podcast recs.
+ * Mirrors the rendered email layout: 64x64 art square on the left (a neutral
+ * placeholder here, since real artwork is fetched server-side at send time)
+ * and a dark pill "Listen on Spotify" button matching the post CTA.
+ */
+function PreviewPickRow({
+    primary,
+    secondary,
+    why,
+}: {
+    primary: string;
+    secondary: string;
+    why: string;
+}) {
+    return (
+        <div style={{ display: "flex", gap: "14px", alignItems: "flex-start", marginBottom: "20px" }}>
+            <div
+                style={{
+                    width: "64px",
+                    height: "64px",
+                    flexShrink: 0,
+                    borderRadius: "6px",
+                    border: "1px solid #e4e4e7",
+                    background: "linear-gradient(135deg, #f4f4f5 0%, #e4e4e7 100%)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "20px",
+                    color: "#a1a1aa",
+                }}
+            >
+                ♪
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ margin: "0 0 4px", fontSize: "14px", fontWeight: 700, color: "#18181b", lineHeight: 1.35 }}>
+                    {primary}
+                    <span style={{ fontWeight: 400, color: "#71717a" }}> · {secondary}</span>
+                </p>
+                <p style={{ margin: "0 0 10px", fontSize: "13px", color: "#3f3f46", lineHeight: 1.6 }}>
+                    {why}
+                </p>
+                <span
+                    style={{
+                        display: "inline-block",
+                        padding: "9px 18px",
+                        background: "#1a1a1a",
+                        color: "#fff",
+                        borderRadius: "5px",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                    }}
+                >
+                    Listen on Spotify →
+                </span>
+            </div>
+        </div>
+    );
+}
 
 function AdminNav({ password }: { password: string }) {
     return (
@@ -102,11 +186,30 @@ export default function AdminComposePage() {
     const [postUrl, setPostUrl] = useState("");
     const [tab, setTab] = useState<"edit" | "preview">("edit");
 
+    // Tail recommendations (music + podcast)
+    const [includeRecs, setIncludeRecs] = useState(false);
+    const [musicPicks, setMusicPicks] = useState<MusicPick[]>([
+        { ...EMPTY_MUSIC_PICK },
+        { ...EMPTY_MUSIC_PICK },
+        { ...EMPTY_MUSIC_PICK },
+    ]);
+    const [podcastPick, setPodcastPick] = useState<PodcastPick>({ ...EMPTY_PODCAST_PICK });
+
     // Send state
     const [sending, setSending] = useState(false);
     const [sendResult, setSendResult] = useState<SendResult | null>(null);
     const [sendError, setSendError] = useState<string | null>(null);
     const [confirming, setConfirming] = useState(false);
+
+    // Test-send state — separate from the production send so a failed test
+    // doesn't bury the (more important) batch-send result UI.
+    const [testEmail, setTestEmail] = useState("varun_sharma@live.com");
+    const [testSending, setTestSending] = useState(false);
+    const [testStatus, setTestStatus] = useState<
+        | { kind: "ok"; to: string }
+        | { kind: "error"; message: string }
+        | null
+    >(null);
 
     // -------------------------------------------------------------------------
     // Auth
@@ -166,6 +269,59 @@ export default function AdminComposePage() {
     // Send
     // -------------------------------------------------------------------------
 
+    async function doSendTest() {
+        if (!authed) return;
+        setTestSending(true);
+        setTestStatus(null);
+
+        try {
+            const payloadMusicPicks = includeRecs
+                ? musicPicks.filter(isMusicPickComplete)
+                : [];
+            const payloadPodcastPick =
+                includeRecs && isPodcastPickComplete(podcastPick) ? podcastPick : undefined;
+
+            const res = await fetch("/api/admin/send-test", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: authHeader(authed),
+                },
+                body: JSON.stringify({
+                    to: testEmail,
+                    subject,
+                    bodyHtml,
+                    postUrl,
+                    musicPicks: payloadMusicPicks,
+                    podcastPick: payloadPodcastPick,
+                }),
+            });
+
+            if (res.status === 401) {
+                setTestStatus({ kind: "error", message: "Session expired — reload and sign in again." });
+                setAuthed(null);
+                return;
+            }
+
+            const data = (await res.json()) as { ok?: boolean; error?: string; to?: string };
+            if (!res.ok || !data.ok) {
+                setTestStatus({
+                    kind: "error",
+                    message: data.error ?? `Server error: ${res.status}`,
+                });
+                return;
+            }
+            setTestStatus({ kind: "ok", to: data.to ?? testEmail });
+        } catch (err) {
+            setTestStatus({
+                kind: "error",
+                message: err instanceof Error ? err.message : String(err),
+            });
+        } finally {
+            setTestSending(false);
+        }
+    }
+
     async function doSend() {
         if (!authed) return;
         setConfirming(false);
@@ -174,13 +330,25 @@ export default function AdminComposePage() {
         setSendError(null);
 
         try {
+            const payloadMusicPicks = includeRecs
+                ? musicPicks.filter(isMusicPickComplete)
+                : [];
+            const payloadPodcastPick =
+                includeRecs && isPodcastPickComplete(podcastPick) ? podcastPick : undefined;
+
             const res = await fetch("/api/admin/send", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: authHeader(authed),
                 },
-                body: JSON.stringify({ subject, bodyHtml, postUrl }),
+                body: JSON.stringify({
+                    subject,
+                    bodyHtml,
+                    postUrl,
+                    musicPicks: payloadMusicPicks,
+                    podcastPick: payloadPodcastPick,
+                }),
             });
 
             if (res.status === 401) {
@@ -486,6 +654,40 @@ export default function AdminComposePage() {
                                     </span>
                                 </div>
                             )}
+                            {/* Music + podcast recs (preview) */}
+                            {includeRecs && musicPicks.some(isMusicPickComplete) && (
+                                <div style={{ padding: "20px 28px 4px", borderTop: "1px solid #f0f0f0" }}>
+                                    <p style={{ margin: "0 0 14px", fontSize: "16px", fontWeight: 700, color: "#18181b", letterSpacing: "-0.01em" }}>
+                                        What I&apos;m listening to
+                                    </p>
+                                    {musicPicks.filter(isMusicPickComplete).map((p, i) => (
+                                        <PreviewPickRow
+                                            key={i}
+                                            primary={p.track}
+                                            secondary={p.artist}
+                                            why={p.why}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                            {includeRecs && isPodcastPickComplete(podcastPick) && (
+                                <div style={{ padding: "8px 28px 24px" }}>
+                                    <p style={{ margin: "0 0 14px", fontSize: "16px", fontWeight: 700, color: "#18181b", letterSpacing: "-0.01em" }}>
+                                        Podcast pick
+                                    </p>
+                                    <PreviewPickRow
+                                        primary={podcastPick.episode}
+                                        secondary={podcastPick.show}
+                                        why={podcastPick.why}
+                                    />
+                                </div>
+                            )}
+                            {includeRecs &&
+                                (musicPicks.some(isMusicPickComplete) || isPodcastPickComplete(podcastPick)) && (
+                                    <p style={{ margin: "0 28px 16px", fontSize: "10px", color: "#a1a1aa", fontStyle: "italic" }}>
+                                        Album & podcast art added automatically when sent.
+                                    </p>
+                                )}
                             {/* Footer */}
                             <div style={{ padding: "16px 28px", borderTop: "1px solid #f0f0f0", background: "#fafafa" }}>
                                 <p style={{ margin: 0, fontSize: "11px", color: "#a1a1aa" }}>
@@ -494,6 +696,311 @@ export default function AdminComposePage() {
                             </div>
                         </div>
                     </div>
+                )}
+            </div>
+
+            {/* Music + podcast recs editor */}
+            <div
+                style={{
+                    marginBottom: "1.5rem",
+                    padding: "1.1rem 1.25rem 1.25rem",
+                    border: "1px solid var(--card-border, #d1d5db)",
+                    borderRadius: "8px",
+                    background: "var(--background, #fff)",
+                }}
+            >
+                <label
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.55rem",
+                        cursor: "pointer",
+                        fontSize: "0.9rem",
+                        fontWeight: 600,
+                        color: "var(--foreground, #1a1a1a)",
+                    }}
+                >
+                    <input
+                        type="checkbox"
+                        checked={includeRecs}
+                        onChange={(e) => setIncludeRecs(e.target.checked)}
+                        style={{ width: "16px", height: "16px", accentColor: "#1a1a1a", cursor: "pointer" }}
+                    />
+                    Include &ldquo;What I&apos;m listening to&rdquo; + &ldquo;Podcast pick&rdquo;
+                </label>
+                <p
+                    style={{
+                        margin: "0.4rem 0 0 1.7rem",
+                        fontSize: "0.8rem",
+                        color: "var(--muted, #666)",
+                    }}
+                >
+                    Optional tail sections after the post. Rows missing any field are skipped silently.
+                </p>
+
+                {includeRecs && (
+                    <div style={{ marginTop: "1.1rem" }}>
+                        {/* Music picks */}
+                        <p
+                            style={{
+                                margin: "0 0 0.6rem",
+                                fontSize: "0.75rem",
+                                fontWeight: 700,
+                                color: "var(--muted, #666)",
+                                textTransform: "uppercase",
+                                letterSpacing: "0.05em",
+                            }}
+                        >
+                            What I&apos;m listening to · 3 tracks
+                        </p>
+                        {musicPicks.map((pick, idx) => (
+                            <div
+                                key={idx}
+                                style={{
+                                    marginBottom: "0.85rem",
+                                    padding: "0.7rem 0.85rem",
+                                    border: "1px solid var(--card-border, #e5e7eb)",
+                                    borderRadius: "6px",
+                                    background: "var(--background, #fafafa)",
+                                }}
+                            >
+                                <p
+                                    style={{
+                                        margin: "0 0 0.5rem",
+                                        fontSize: "0.7rem",
+                                        fontWeight: 700,
+                                        color: "var(--muted, #888)",
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.05em",
+                                    }}
+                                >
+                                    Track {idx + 1}
+                                </p>
+                                <div
+                                    style={{
+                                        display: "grid",
+                                        gridTemplateColumns: "1fr 1fr",
+                                        gap: "0.5rem",
+                                        marginBottom: "0.5rem",
+                                    }}
+                                >
+                                    <input
+                                        type="text"
+                                        value={pick.track}
+                                        placeholder="Track name"
+                                        onChange={(e) => {
+                                            const next = [...musicPicks];
+                                            next[idx] = { ...pick, track: e.target.value };
+                                            setMusicPicks(next);
+                                        }}
+                                        style={inputStyle}
+                                    />
+                                    <input
+                                        type="text"
+                                        value={pick.artist}
+                                        placeholder="Artist"
+                                        onChange={(e) => {
+                                            const next = [...musicPicks];
+                                            next[idx] = { ...pick, artist: e.target.value };
+                                            setMusicPicks(next);
+                                        }}
+                                        style={inputStyle}
+                                    />
+                                </div>
+                                <input
+                                    type="url"
+                                    value={pick.spotifyUrl}
+                                    placeholder="https://open.spotify.com/track/..."
+                                    onChange={(e) => {
+                                        const next = [...musicPicks];
+                                        next[idx] = { ...pick, spotifyUrl: e.target.value };
+                                        setMusicPicks(next);
+                                    }}
+                                    style={{ ...inputStyle, width: "100%", marginBottom: "0.5rem" }}
+                                />
+                                <textarea
+                                    value={pick.why}
+                                    placeholder="Why I like it (one or two sentences)"
+                                    rows={2}
+                                    onChange={(e) => {
+                                        const next = [...musicPicks];
+                                        next[idx] = { ...pick, why: e.target.value };
+                                        setMusicPicks(next);
+                                    }}
+                                    style={{ ...inputStyle, width: "100%", resize: "vertical" }}
+                                />
+                            </div>
+                        ))}
+
+                        {/* Podcast pick */}
+                        <p
+                            style={{
+                                margin: "1.1rem 0 0.6rem",
+                                fontSize: "0.75rem",
+                                fontWeight: 700,
+                                color: "var(--muted, #666)",
+                                textTransform: "uppercase",
+                                letterSpacing: "0.05em",
+                            }}
+                        >
+                            Podcast pick · 1 episode
+                        </p>
+                        <div
+                            style={{
+                                padding: "0.7rem 0.85rem",
+                                border: "1px solid var(--card-border, #e5e7eb)",
+                                borderRadius: "6px",
+                                background: "var(--background, #fafafa)",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "1fr 1fr",
+                                    gap: "0.5rem",
+                                    marginBottom: "0.5rem",
+                                }}
+                            >
+                                <input
+                                    type="text"
+                                    value={podcastPick.show}
+                                    placeholder="Show name"
+                                    onChange={(e) =>
+                                        setPodcastPick({ ...podcastPick, show: e.target.value })
+                                    }
+                                    style={inputStyle}
+                                />
+                                <input
+                                    type="text"
+                                    value={podcastPick.episode}
+                                    placeholder="Episode title"
+                                    onChange={(e) =>
+                                        setPodcastPick({ ...podcastPick, episode: e.target.value })
+                                    }
+                                    style={inputStyle}
+                                />
+                            </div>
+                            <input
+                                type="url"
+                                value={podcastPick.spotifyUrl}
+                                placeholder="https://open.spotify.com/episode/..."
+                                onChange={(e) =>
+                                    setPodcastPick({ ...podcastPick, spotifyUrl: e.target.value })
+                                }
+                                style={{ ...inputStyle, width: "100%", marginBottom: "0.5rem" }}
+                            />
+                            <textarea
+                                value={podcastPick.why}
+                                placeholder="Why this episode (one or two sentences)"
+                                rows={2}
+                                onChange={(e) =>
+                                    setPodcastPick({ ...podcastPick, why: e.target.value })
+                                }
+                                style={{ ...inputStyle, width: "100%", resize: "vertical" }}
+                            />
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {/* Test-send area */}
+            <div
+                style={{
+                    marginBottom: "1rem",
+                    padding: "0.85rem 1rem",
+                    border: "1px dashed var(--card-border, #d1d5db)",
+                    borderRadius: "6px",
+                    background: "var(--background, #fafafa)",
+                }}
+            >
+                <p
+                    style={{
+                        margin: "0 0 0.5rem",
+                        fontSize: "0.75rem",
+                        fontWeight: 700,
+                        color: "var(--muted, #666)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.05em",
+                    }}
+                >
+                    Send a test
+                </p>
+                <div
+                    style={{
+                        display: "flex",
+                        gap: "0.5rem",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                    }}
+                >
+                    <input
+                        type="email"
+                        value={testEmail}
+                        onChange={(e) => {
+                            setTestEmail(e.target.value);
+                            setTestStatus(null);
+                        }}
+                        placeholder="you@example.com"
+                        style={{
+                            ...inputStyle,
+                            flex: "1 1 240px",
+                            minWidth: 0,
+                        }}
+                    />
+                    <button
+                        onClick={doSendTest}
+                        disabled={
+                            !canSend ||
+                            testSending ||
+                            !testEmail.trim()
+                        }
+                        style={{
+                            padding: "0.5rem 1.1rem",
+                            borderRadius: "5px",
+                            border: "1px solid var(--card-border, #d1d5db)",
+                            background: "var(--background, #fff)",
+                            color: "var(--foreground, #1a1a1a)",
+                            fontWeight: 600,
+                            fontSize: "0.85rem",
+                            cursor: canSend && !testSending && testEmail.trim() ? "pointer" : "not-allowed",
+                            opacity: canSend && !testSending && testEmail.trim() ? 1 : 0.55,
+                        }}
+                    >
+                        {testSending ? "Sending test…" : "Send test"}
+                    </button>
+                </div>
+                <p
+                    style={{
+                        margin: "0.5rem 0 0",
+                        fontSize: "0.75rem",
+                        color: "var(--muted, #888)",
+                    }}
+                >
+                    Subject is prefixed with <code style={{ fontFamily: "ui-monospace, monospace" }}>[TEST]</code>. Doesn&apos;t touch the subscriber list.
+                </p>
+                {testStatus?.kind === "ok" && (
+                    <p
+                        style={{
+                            margin: "0.55rem 0 0",
+                            fontSize: "0.8rem",
+                            color: "#166534",
+                            fontWeight: 600,
+                        }}
+                    >
+                        ✓ Test sent to {testStatus.to}. Check your inbox.
+                    </p>
+                )}
+                {testStatus?.kind === "error" && (
+                    <p
+                        style={{
+                            margin: "0.55rem 0 0",
+                            fontSize: "0.8rem",
+                            color: "#991b1b",
+                            fontWeight: 600,
+                        }}
+                    >
+                        Test failed: {testStatus.message}
+                    </p>
                 )}
             </div>
 

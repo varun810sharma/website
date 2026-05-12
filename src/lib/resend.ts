@@ -187,9 +187,37 @@ export async function sendNewsletterBatch(items: BatchItem[]): Promise<BatchSend
 // ---------------------------------------------------------------------------
 
 /**
+ * One song recommendation. All four required fields must be present for a
+ * row to render — incomplete rows are filtered out before building the email.
+ * `imageUrl` is auto-resolved server-side from the Spotify URL via oEmbed
+ * (see `src/lib/spotify.ts`); admins don't fill it in directly.
+ */
+export interface MusicPick {
+    track: string;
+    artist: string;
+    spotifyUrl: string;
+    why: string;
+    imageUrl?: string;
+}
+
+/**
+ * One podcast episode recommendation.  Renders as a single block beneath the
+ * music section.  All four required fields must be present for the block
+ * to render.  `imageUrl` is auto-resolved server-side.
+ */
+export interface PodcastPick {
+    show: string;
+    episode: string;
+    spotifyUrl: string;
+    why: string;
+    imageUrl?: string;
+}
+
+/**
  * Wraps the admin-authored `bodyHtml` in a clean, responsive email shell.
- * The shell provides the from-header, optional "Read full post" CTA, and an
- * unsubscribe footer.  `bodyHtml` should be inline-styled for email clients.
+ * The shell provides the from-header, optional "Read full post" CTA, optional
+ * "What I'm listening to" + "Podcast pick" tail sections, and an unsubscribe
+ * footer.  `bodyHtml` should be inline-styled for email clients.
  */
 export function buildNewsletterEmailHtml(opts: {
     title: string;
@@ -198,6 +226,16 @@ export function buildNewsletterEmailHtml(opts: {
     postUrl: string;
     /** Per-recipient one-click unsubscribe URL. */
     unsubscribeUrl: string;
+    /**
+     * Optional song recommendations. Rows missing any required field are
+     * dropped silently. Section is omitted entirely if no valid rows remain.
+     */
+    musicPicks?: MusicPick[];
+    /**
+     * Optional podcast episode recommendation. Section is omitted if any
+     * required field is missing.
+     */
+    podcastPick?: PodcastPick;
 }): string {
     const ctaBlock = opts.postUrl
         ? `<tr>
@@ -205,6 +243,18 @@ export function buildNewsletterEmailHtml(opts: {
               <a href="${opts.postUrl}" style="display:inline-block;padding:12px 24px;background:#1a1a1a;color:#ffffff;text-decoration:none;border-radius:6px;font-weight:600;font-size:14px;letter-spacing:0.01em;">Read the full post →</a>
             </td>
           </tr>`
+        : "";
+
+    const validMusic = (opts.musicPicks ?? []).filter(isCompleteMusicPick);
+    const validPodcast = isCompletePodcastPick(opts.podcastPick) ? opts.podcastPick : undefined;
+
+    const musicBlock = validMusic.length > 0 ? buildMusicBlock(validMusic) : "";
+    const podcastBlock = validPodcast ? buildPodcastBlock(validPodcast) : "";
+
+    // A subtle divider above the recs only if at least one section is present
+    // and the post body / CTA preceded them.  Keeps single-section emails clean.
+    const dividerBlock = (musicBlock || podcastBlock)
+        ? `<tr><td style="padding:0 32px;"><div style="border-top:1px solid #f0f0f0;height:0;line-height:0;font-size:0;">&nbsp;</div></td></tr>`
         : "";
 
     return `<!DOCTYPE html>
@@ -237,6 +287,11 @@ export function buildNewsletterEmailHtml(opts: {
           <!-- CTA -->
           ${ctaBlock}
 
+          <!-- Tail sections (music + podcast) -->
+          ${dividerBlock}
+          ${musicBlock}
+          ${podcastBlock}
+
           <!-- Footer -->
           <tr>
             <td style="padding:20px 32px;border-top:1px solid #f0f0f0;background:#fafafa;">
@@ -255,6 +310,129 @@ export function buildNewsletterEmailHtml(opts: {
   </table>
 </body>
 </html>`;
+}
+
+// ---------------------------------------------------------------------------
+// Tail-section helpers
+// ---------------------------------------------------------------------------
+
+function isCompleteMusicPick(p: MusicPick): boolean {
+    return Boolean(
+        p && p.track?.trim() && p.artist?.trim() && p.spotifyUrl?.trim() && p.why?.trim()
+    );
+}
+
+function isCompletePodcastPick(p: PodcastPick | undefined): p is PodcastPick {
+    return Boolean(
+        p && p.show?.trim() && p.episode?.trim() && p.spotifyUrl?.trim() && p.why?.trim()
+    );
+}
+
+/**
+ * Listen-on-Spotify pill button — visually identical to the "Read the full
+ * post" CTA so the email reads as a single design system.
+ */
+function listenButton(href: string): string {
+    return `<a href="${escAttr(href)}" style="display:inline-block;padding:12px 24px;background:#1a1a1a;color:#ffffff;text-decoration:none;border-radius:6px;font-weight:600;font-size:14px;letter-spacing:0.01em;">Listen on Spotify &rarr;</a>`;
+}
+
+/**
+ * Two-column image+text row used by both the music and podcast blocks.
+ * Falls back to a single-column layout when no imageUrl is present so we
+ * don't render an empty 64px gutter.
+ */
+function buildPickRow(opts: {
+    imageUrl?: string;
+    primary: string; // Bolded line (e.g., track name or episode title)
+    secondary: string; // Lighter line (e.g., artist or show name)
+    why: string;
+    spotifyUrl: string;
+    bottomPadding: number;
+}): string {
+    const text = `
+      <p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#18181b;line-height:1.35;">
+        <a href="${escAttr(opts.spotifyUrl)}" style="color:#18181b;text-decoration:none;">${escHtml(opts.primary)}</a>
+        <span style="font-weight:400;color:#71717a;"> &middot; ${escHtml(opts.secondary)}</span>
+      </p>
+      <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#3f3f46;">${escHtml(opts.why)}</p>
+      ${listenButton(opts.spotifyUrl)}
+    `;
+
+    if (opts.imageUrl) {
+        return `
+          <tr>
+            <td style="padding:0 0 ${opts.bottomPadding}px;">
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                  <td width="80" valign="top" style="padding-right:16px;width:80px;">
+                    <a href="${escAttr(opts.spotifyUrl)}" style="text-decoration:none;display:block;">
+                      <img src="${escAttr(opts.imageUrl)}" width="64" height="64" alt="" style="display:block;width:64px;height:64px;border-radius:6px;border:1px solid #e4e4e7;" />
+                    </a>
+                  </td>
+                  <td valign="top">
+                    ${text}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>`;
+    }
+
+    return `
+      <tr>
+        <td style="padding:0 0 ${opts.bottomPadding}px;">
+          ${text}
+        </td>
+      </tr>`;
+}
+
+function buildMusicBlock(picks: MusicPick[]): string {
+    const rows = picks
+        .map((p, i) =>
+            buildPickRow({
+                imageUrl: p.imageUrl,
+                primary: p.track,
+                secondary: p.artist,
+                why: p.why,
+                spotifyUrl: p.spotifyUrl,
+                // Less bottom padding on the last row so the section spacing
+                // is governed by the surrounding table cell, not the row.
+                bottomPadding: i === picks.length - 1 ? 8 : 22,
+            })
+        )
+        .join("\n");
+
+    return `<tr>
+            <td style="padding:24px 32px 16px;">
+              <p style="margin:0 0 16px;font-size:18px;font-weight:700;color:#18181b;letter-spacing:-0.01em;">What I'm listening to</p>
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                ${rows}
+              </table>
+            </td>
+          </tr>`;
+}
+
+function buildPodcastBlock(p: PodcastPick): string {
+    const row = buildPickRow({
+        imageUrl: p.imageUrl,
+        primary: p.episode,
+        secondary: p.show,
+        why: p.why,
+        spotifyUrl: p.spotifyUrl,
+        bottomPadding: 0,
+    });
+    return `<tr>
+            <td style="padding:8px 32px 32px;">
+              <p style="margin:0 0 16px;font-size:18px;font-weight:700;color:#18181b;letter-spacing:-0.01em;">Podcast pick</p>
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                ${row}
+              </table>
+            </td>
+          </tr>`;
+}
+
+function escAttr(s: string): string {
+    return escHtml(s);
 }
 
 function escHtml(s: string): string {
