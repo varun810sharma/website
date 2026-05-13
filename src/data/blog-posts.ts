@@ -16,7 +16,7 @@ export const blogPosts: BlogPost[] = [
         readTime: "14 min read",
         summary: "The categories that defined CPG for a century are dissolving into each other, and the org charts haven't caught up. On transformers, acquirers, the distribution paradox that destroys what it buys, why non-alcoholic beverages crystallize everything, and the next acquisitions worth watching.",
         tags: ["CPG", "Consumer Trends", "M&A", "Strategy"],
-        published: false,
+        published: true,
     },
     {
         slug: "six-consumer-trends-india",
