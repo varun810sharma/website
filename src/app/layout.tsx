@@ -34,6 +34,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  // Resolves all relative OG/Twitter image paths to absolute HTTPS URLs, which
+  // social platforms require. Lets pages reference images like "/og/default.png".
+  metadataBase: new URL("https://varunsharma.online"),
   title: "Varun Sharma | Builder, Operator & Endurance Athlete",
   description: "Builder. Operator. Endurance Athlete. Product Manager at the intersection of technology, consumer goods, and go-to-market.",
   keywords: ["portfolio", "product manager", "PMI", "consumer goods", "go-to-market", "INSEAD", "eCommerce"],
@@ -44,7 +47,7 @@ export const metadata: Metadata = {
     siteName: "Varun Sharma",
     images: [
       {
-        url: "https://YOUR-DOMAIN.com/avatar.jpg",
+        url: "/og/default.png",
         width: 1200,
         height: 630,
         alt: "Varun Sharma - Builder, Operator & Endurance Athlete",
@@ -52,6 +55,12 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Varun Sharma | Builder, Operator & Endurance Athlete",
+    description: "Builder. Operator. Endurance Athlete. Product Manager at the intersection of technology, consumer goods, and go-to-market.",
+    images: ["/og/default.png"],
   },
 };
 

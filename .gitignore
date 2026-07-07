@@ -45,3 +45,6 @@ next-env.d.ts
 .open-next
 .dev.vars
 .dev.vars.*
+
+# Local-only OG image source originals (crops in public/og are what deploys)
+blog-image-sources/

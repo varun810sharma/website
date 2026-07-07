@@ -6,9 +6,44 @@ export interface BlogPost {
     summary: string;
     tags: string[];
     published: boolean; // must be true for a post to appear anywhere on the site
+    // Optional per-post social preview image. Point at a 1200x630 image in
+    // /public using a root-relative path (e.g. "/og/rented-restraint-glp1.png").
+    // When omitted, the site-wide fallback (/og/default.png) is used so the
+    // link preview never breaks.
+    image?: string;
 }
 
 export const blogPosts: BlogPost[] = [
+    {
+        slug: "rented-restraint-glp1",
+        title: "Rented Restraint: GLP-1 and the Businesses Built on Wanting More",
+        date: "Jul 2026",
+        readTime: "16 min read",
+        summary: "Milk was a demand-creation campaign before it was a habit. GLP-1 is the first tool that runs the machine backward, and a fifth of American households are already on it. On rented versus owned restraint, why the profit hit runs far ahead of the sales hit for snacks and restaurants, the contrarian case that it makes insurance cheaper, and why India is the cheaper, faster lab.",
+        tags: ["GLP-1", "Consumer Trends", "Healthcare", "Strategy"],
+        published: true,
+        image: "/og/rented-restraint-glp1.png",
+    },
+    {
+        slug: "after-running-on-premium-athletic",
+        title: "After Running: On and the Premium Athletic Position",
+        date: "Jun 2026",
+        readTime: "8 min read",
+        summary: "On runs a 62.8% gross margin against 41% at Nike. You don't open a 22-point gap by building a marginally better running shoe. On the business On is actually in, why nobody else can take the premium athletic position, and what the Jordan Brand comparison reveals about the decade ahead.",
+        tags: ["Strategy", "Consumer Brands", "Finance"],
+        published: true,
+        image: "/og/after-running-on-premium-athletic.png",
+    },
+    {
+        slug: "first-90-days-product-manager",
+        title: "How to Thrive in Your First 90 Days as a Product Manager",
+        date: "May 2026",
+        readTime: "5 min read",
+        summary: "Not a generic 90-day playbook. A set of things I wish someone had told me before I started my B2B2C product role at PMI: finding the people who tell you the truth, studying the graveyard, and why the PMs who land well are the ones who listened longest.",
+        tags: ["Product Management", "Career"],
+        published: true,
+        image: "/og/first-90-days-product-manager.png",
+    },
     {
         slug: "after-the-category-quiet-reorganization-cpg",
         title: "After the Category: The Quiet Reorganization of CPG",
@@ -17,6 +52,7 @@ export const blogPosts: BlogPost[] = [
         summary: "The categories that defined CPG for a century are dissolving into each other, and the org charts haven't caught up. On transformers, acquirers, the distribution paradox that destroys what it buys, why non-alcoholic beverages crystallize everything, and the next acquisitions worth watching.",
         tags: ["CPG", "Consumer Trends", "M&A", "Strategy"],
         published: true,
+        image: "/og/after-the-category-quiet-reorganization-cpg.png",
     },
     {
         slug: "six-consumer-trends-india",
@@ -26,6 +62,7 @@ export const blogPosts: BlogPost[] = [
         summary: "A consumer class that wants the real thing, and is increasingly able to afford it. Six observations on protein, wellness, grooming, pet care, coffee, and fitness — and why I'm bullish on India.",
         tags: ["Consumer Trends", "Market Analysis"],
         published: true,
+        image: "/og/six-consumer-trends-india.png",
     },
     {
         slug: "take-risks-to-write-a-better-brand-story",
@@ -34,46 +71,6 @@ export const blogPosts: BlogPost[] = [
         readTime: "5 min read",
         summary: "A brand is the end result of the choices it makes — not its tagline or banner. On why the best brands, from Nike to early-stage startups, take calculated risks to build stories that actually resonate.",
         tags: ["Branding", "Marketing", "Entrepreneurship"],
-        published: false,
-    },
-    {
-        slug: "building-maintainme-privacy-first-calorie-tracker",
-        title: "Building MaintainMe: A Privacy-First, AI-Powered Calorie Tracker",
-        date: "Jan 2026",
-        readTime: "4 min read",
-        summary:
-            "The launch of MaintainMe, an open-source, privacy-first calorie tracker PWA. Built to help people manage their weight without paywalls or ads, it uses Gemini AI to track meals via text or photos.",
-        tags: ["Open Source", "PWA", "Gemini AI"],
-        published: false,
-    },
-    {
-        slug: "understanding-agentic-ai-and-google-adk",
-        title: "Understanding Agentic AI and Google's Agent Development Kit (ADK)",
-        date: "Aug 2025",
-        readTime: "5 min read",
-        summary:
-            "Defining Agentic AI—systems capable of autonomous reasoning and action. An introduction to the Google Agent Development Kit (ADK) as a tool to simplify connecting LLMs to APIs and data sources for effective AI agent orchestration.",
-        tags: ["Agentic AI", "LLM", "Google ADK"],
-        published: false,
-    },
-    {
-        slug: "building-scalable-data-models-insights",
-        title: "Building Scalable Data Models: Insights from Google London",
-        date: "Jul 2025",
-        readTime: "6 min read",
-        summary:
-            "Reflecting on a visit to the Google London office, discussing the realities of data modeling at scale, translating fuzzy business requirements into metrics, and designing future-proof schemas.",
-        tags: ["Data Modeling", "Architecture", "Engineering"],
-        published: false,
-    },
-    {
-        slug: "mastering-sql-optimization-performance-cost",
-        title: "Mastering SQL Optimization for Performance and Cost-Efficiency",
-        date: "Apr 2025",
-        readTime: "7 min read",
-        summary:
-            "A technical guide for data engineers on optimizing SQL queries to manage cloud costs and improve performance, covering smart data retrieval, indexing, execution plans, and partitioning.",
-        tags: ["SQL", "Data Engineering", "Cloud Costs"],
         published: false,
     },
 ];

@@ -64,54 +64,60 @@ export default function BlogPage() {
                                 href={`/blog/${post.slug}`}
                                 style={{ textDecoration: "none", color: "inherit" }}
                             >
-                                <div className="blog-card">
-                                    {/* Meta */}
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "0.75rem",
-                                            marginBottom: "0.75rem",
-                                            fontSize: "0.8rem",
-                                            color: "var(--muted)",
-                                        }}
-                                    >
-                                        <span>{post.date}</span>
-                                        <span>·</span>
-                                        <span>{post.readTime}</span>
-                                    </div>
+                                <div className="blog-card blog-card--list">
+                                    {/* Thumbnail (left on desktop) */}
+                                    {post.image && (
+                                        // eslint-disable-next-line @next/next/no-img-element
+                                        <img
+                                            className="blog-card__thumb"
+                                            src={post.image}
+                                            alt={post.title}
+                                        />
+                                    )}
 
-                                    {/* Title */}
-                                    <h2
-                                        style={{
-                                            fontSize: "1.25rem",
-                                            fontWeight: 700,
-                                            marginBottom: "0.5rem",
-                                            color: "var(--foreground)",
-                                        }}
-                                    >
-                                        {post.title}
-                                    </h2>
+                                    {/* Text (right on desktop) */}
+                                    <div className="blog-card__body">
+                                        {/* Meta */}
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: "0.75rem",
+                                                marginBottom: "0.5rem",
+                                                fontSize: "0.8rem",
+                                                color: "var(--muted)",
+                                            }}
+                                        >
+                                            <span>{post.date}</span>
+                                            <span>·</span>
+                                            <span>{post.readTime}</span>
+                                        </div>
 
-                                    {/* Summary */}
-                                    <p
-                                        style={{
-                                            fontSize: "0.9rem",
-                                            lineHeight: 1.6,
-                                            color: "var(--muted)",
-                                            marginBottom: "0.75rem",
-                                        }}
-                                    >
-                                        {post.summary}
-                                    </p>
+                                        {/* Title */}
+                                        <h2
+                                            style={{
+                                                fontSize: "1.25rem",
+                                                fontWeight: 700,
+                                                marginBottom: "0.4rem",
+                                                color: "var(--foreground)",
+                                            }}
+                                        >
+                                            {post.title}
+                                        </h2>
 
-                                    {/* Tags */}
-                                    <div style={{ display: "flex", gap: "0.4rem" }}>
-                                        {post.tags.map((tag) => (
-                                            <span key={tag} className="tech-tag">
-                                                {tag}
-                                            </span>
-                                        ))}
+                                        {/* Summary (small subtext, clamped) */}
+                                        <p className="blog-card__summary">
+                                            {post.summary}
+                                        </p>
+
+                                        {/* Tags */}
+                                        <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+                                            {post.tags.map((tag) => (
+                                                <span key={tag} className="tech-tag">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </Link>

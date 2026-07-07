@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import PageTransition from "@/components/PageTransition";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -6,6 +7,75 @@ import { getBlogContent } from "@/lib/blog-content";
 
 interface Props {
     params: Promise<{ slug: string }>;
+}
+
+// Canonical site origin. metadataBase (set in the root layout) makes relative
+// image paths absolute automatically, but og:url must be an explicit absolute
+// URL so we build it from this constant.
+const SITE_URL = "https://varunsharma.online";
+const DEFAULT_OG_IMAGE = "/og/default.png";
+const DEFAULT_DESCRIPTION =
+    "Essays on consumer goods, product, and go-to-market by Varun Sharma.";
+
+// Build a clean, ~160-char social description: prefer the post summary, fall
+// back to the first meaningful paragraph of the article body, then to a
+// site-level default. Never returns an empty string, so previews never break.
+function buildDescription(summary: string | undefined, html: string): string {
+    const fromSummary = (summary ?? "").trim();
+    let text = fromSummary;
+
+    if (!text) {
+        const firstPara = html.match(/<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] ?? "";
+        text = firstPara
+            .replace(/<[^>]+>/g, "") // strip inline tags
+            .replace(/&amp;/g, "&")
+            .replace(/&(?:nbsp|#160);/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    if (!text) return DEFAULT_DESCRIPTION;
+    if (text.length <= 160) return text;
+
+    // Truncate on a word boundary at ~160 chars.
+    const clipped = text.slice(0, 160);
+    const lastSpace = clipped.lastIndexOf(" ");
+    return `${clipped.slice(0, lastSpace > 0 ? lastSpace : 160).trim()}…`;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+    const post = blogPosts.find((p) => p.slug === slug);
+
+    if (!post || !post.published) {
+        return { title: "Post not found" };
+    }
+
+    const url = `${SITE_URL}/blog/${post.slug}`;
+    const description = buildDescription(post.summary, getBlogContent(slug));
+    // Per-post image when present, otherwise the site-wide fallback. Both are
+    // resolved to absolute HTTPS URLs via metadataBase.
+    const image = post.image ?? DEFAULT_OG_IMAGE;
+
+    return {
+        title: post.title,
+        description,
+        alternates: { canonical: url },
+        openGraph: {
+            type: "article",
+            url,
+            siteName: "Varun Sharma",
+            title: post.title,
+            description,
+            images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: post.title,
+            description,
+            images: [image],
+        },
+    };
 }
 
 export async function generateStaticParams() {
@@ -88,6 +158,23 @@ export default async function BlogPostPage({ params }: Props) {
                         ))}
                     </div>
                 </div>
+
+                {/* Hero image */}
+                {post.image && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                        src={post.image}
+                        alt={post.title}
+                        style={{
+                            width: "100%",
+                            aspectRatio: "1200 / 630",
+                            objectFit: "cover",
+                            borderRadius: "8px",
+                            border: "1px solid var(--border)",
+                            marginBottom: "3rem",
+                        }}
+                    />
+                )}
 
                 {/* Post Body (Rendered HTML) */}
                 <article
