@@ -367,6 +367,8 @@ a:hover {
   .hero__photo {
     width: 180px;
     margin-top: 0;
+    /* Center the portrait above the bio on narrow screens. */
+    align-self: center;
   }
 }
 
