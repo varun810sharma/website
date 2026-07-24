@@ -11,6 +11,202 @@
  */
 
 const blogContent: Record<string, string> = {
+  "rented-restraint-glp1": `<p>The glass of milk that sat next to the American breakfast plate for most of the last century began as an inventory problem. Farmers had more milk than the country was drinking, and instead of producing less of it, the industry set out to grow the appetite until it matched the supply. That's worth remembering right now, because we've just built the first tool that runs the process the other way, and almost nobody in consumer goods has priced in what that means. This piece is about that tool. It starts with milk because milk is the clearest proof that the hunger you think of as yours was often someone else's idea first.</p>
+
+<h2>Milk was a campaign before it was a habit.</h2>
+
+<p>The American Dairy Association came together in 1940, built by farmers and cooperatives sitting on a surplus that needed somewhere to go. Their answer was demand-creation at national scale. By the early 1960s the ADA was paying to sponsor "The Adventures of Ozzie and Harriet," and the most reassuring family on television would turn to the camera between scenes and tell you to drink a glass of milk with every meal. Schools ran the same ritual, lining kids up in front of steel containers for a daily serving. Doctors told pregnant women to drink more for the baby. None of it happened by accident, and within two generations Americans had inherited a habit that a trade group engineered to empty a warehouse (Sentient Media; Milwaukee Magazine).</p>
+
+<p>India reached a similar place by walking in from the opposite side, and that difference matters later. There was no surplus to unload. There was a shortage, and millions of small farmers getting squeezed by the traders who stood between them and the market. In 1946, in Anand, farmers set up the cooperative that became Amul, and Verghese Kurien, who joined in 1949, turned it into the engine behind Operation Flood, the largest dairy development program the world has ever run, and it turned a milk-deficient country into the biggest milk producer on the planet (World Food Prize; Amul Dairy). Amul didn't have to invent the desire, since dairy was already woven into Indian cooking. What it did was industrialize that desire, put a brand on it, and land packaged milk, butter and curd in hundreds of millions of homes that had never bought them in a carton.</p>
+
+<p>The mechanisms were opposite, and the outcome was the same. One country conjured demand to move a surplus, the other organized demand that already existed until it was everywhere, and in both cases something outside the body decided what belonged on the plate, then held there long enough that it felt like it had always been there. Hold onto that, because for the first time in 100 years we've built a technology that runs the whole machine backward.</p>
+
+<h2>The un-manufacturing.</h2>
+
+<p>GLP-1 drugs (Ozempic, Wegovy, Mounjaro, Zepbound) don't sell you a thing to eat or drink. They sell you the disappearance of wanting it, and the consumer economy has never had to reckon with a product like that. The uptake looks nothing like the slow burn of a trend working its way through one corner of a market. Roughly one in eight American adults is on a GLP-1 today, and about 18% have taken one at some point (KFF, November 2025). By May 2026, PwC's household data had a current user living in one of every five American homes, up from 9% at the start of 2025. When a fifth of the country's households change how much they eat inside 18 months, you're not looking at a niche behavior anymore; you're looking at the demand side of the entire food economy moving at once.</p>
+
+<p>One clarification before this goes further, because these conversations tend to collapse into a fight I don't mean to start. I'm not talking about the medical case, and I want it walled off. If you're managing type 2 diabetes, obesity, or the cardiovascular risk these drugs now carry an indication for, none of my argument is pointed at you. The drug is doing work your body can't do alone and it's worth what it costs. I'm not against medicine and I'm not against people trying something new. What I'm circling is narrower and it's psychological. It's the far larger group reaching for a prescription as a shortcut around the effort, and what they're signing up for when they do.</p>
+
+<h2>Rented restraint and owned restraint.</h2>
+
+<p>The distinction I keep coming back to is ownership. Restraint you build for yourself is holistic, and it belongs to you. You changed what you eat and how you move, the habit rewired itself, and it holds even on the nights you're not thinking about it. Restraint that comes out of a pen is real too, but you're renting it, and it stays only as long as the payments do.</p>
+
+<p>We know it's a rental because the trial data leaves no room to argue. In the STEP 1 extension, published in Diabetes, Obesity and Metabolism in 2022, patients on semaglutide lost 17.3% of their body weight across 68 weeks. Then the researchers took the drug away. A year later, two-thirds of the lost weight had come back (Wilding et al., 2022). Nothing about the body had learned a thing. It had been overruled, and the moment the ruling lifted, the old appetite walked back in and reclaimed the ground.</p>
+
+<p>That's the part I'd want anyone using this for looks or convenience to think about. The drug is a bridge, and I've got no problem with a bridge. But a bridge is only worth building if you plan to cross it and step off on the far side, and what the data describes is a crowd setting up camp in the middle with no intention of reaching the other bank. If the only thing holding the number down is a weekly injection, the result was never yours. You leased it, on terms nobody's reading closely, while the long-run side effects are still being worked out and all of us are early. My honest position is that if you can get there on food and movement, get there on food and movement, because that's the version the body keeps. The drug should be the thing that carries you to the exit, not the thing you stay on for a decade while the science catches up to what a decade of it does.</p>
+
+<p>Now put a fifth of a country on rented restraint at the same moment, and the appetite that dairy and snack companies spent a century constructing doesn't just cool off. It reprices, right across the plate.</p>
+
+<h2>The meal comes apart.</h2>
+
+<p>Structure goes first. Breakfast, lunch, dinner, and the several snacking occasions the industry invented to fill the gaps between them, all of it was built on the assumption that hunger shows up on a timetable. GLP-1 erases the timetable. The reach between meals, the second serving, the thing you told yourself you'd earned by nine at night, those calories go first, because they were never hunger to begin with. They were habit and reward, and quieting reward is the one thing the drug does best.</p>
+
+<p>Watch the restaurant that turned excess into its entire personality. The Cheesecake Factory built a brand on plates that clear 1,500 calories without trying, with a single pasta dish crossing 2,000 before the cheesecake even arrives. Abundance you couldn't finish was the whole promise. In March 2026, J.P. Morgan upgraded the stock, and the reasoning behind the upgrade is the giveaway: analysts figured the chain could keep its GLP-1 customers because of the Skinnylicious menu, the 500-calorie section it has kept quietly parked on the menu for years, which now gives a shrunken appetite a place to land (Fortune; J.P. Morgan). The upbeat case for the most maximalist restaurant in the country now rests on the small-plate section it used to ignore.</p>
+
+<p>The math underneath is unkind even when the customer comes back through the door. A table that once ordered two full entrees, a milkshake, a starter and cheesecake now orders two Skinnylicious salads and a Diet Coke. Same table, same rent, same server, and a check worth a fraction of the old one. When the average spend per table drops, it drops straight to the bottom line, because none of the cost of serving that table went anywhere. Olive Garden and others are shrinking portions for the same reason (Fortune). The basic unit of the restaurant business, the occupied table, is worth less than it used to be, and hospitality can't fix a guest who isn't hungry.</p>
+
+<h2>The macros flip.</h2>
+
+<p>What people do still eat swings hard toward protein and away from refined carbs. Cornell and the market-intelligence firm Numerator tracked this through household purchase data: inside six months of a home starting a GLP-1, savory snack purchases dropped around 11%, while nutrient-dense buys like yogurt and fresh produce edged up (Food Dive; NJBIZ). Better food in the cart, less junk, right at the register.</p>
+
+<p>I wrote about the same protein migration in India last year, where it's being pulled by a rising consumer class that finally has the income to want the good stuff. GLP-1 is the Western cut of the same story, except it arrives through a needle rather than an aspiration. Both roads run in the same direction, which means anyone selling protein, fiber and satiety is catching a tailwind from two unrelated engines at once. That doesn't happen often, and it's worth being long on.</p>
+
+<h2>What it does to a snack company's money.</h2>
+
+<p>When somebody starts one of these drugs, they eat less, and they don't cut across the board. What goes first is the chips, the soda, the cookies, the extra thing grabbed at the register. Those happen to be the most profitable items in the store. A bag of chips is a few cents of potato and oil selling for five dollars, and when it stays on the shelf the company doesn't lose an average sale, it loses its best one, the sale that was quietly paying for all the low-margin staples nobody makes money on.</p>
+
+<p>Then it compounds, and this is the part that decides who makes it through. A snack factory is built to run full. The plant, the lines, the trucks, the payroll, you cover all of it whether the line runs at 100% or 95%. So a 5% drop in volume doesn't take 5% off your costs; it barely touches them, which means it doesn't take 5% off your profit either. It takes far more, because the same fixed cost is now carried by fewer bags. Operating leverage is a beautiful thing on the way up and a wrecking ball on the way down.</p>
+
+<p>Here's the figure that should make a CFO put the coffee down. Cornell and Numerator found the average GLP-1 household trims its grocery bill by about 5.5%, roughly $416 a year, and nearer $690 for households earning over $125,000 (Food Dive). Run it across the map. There are about 132 million American households; put a current user in a fifth of them and call the average cut $500, and you're looking at north of $13 billion a year walking out of the American grocery basket. $13 billion is only about 1% of the $1.10 trillion Americans spend on groceries, but it lands almost entirely on the highest-margin corners of the store, which is why the profit hit runs far ahead of the sales hit. That's also more than the Hershey Company sells in a year, the whole of it, Reese's and Kisses and everything else, gone from the cart annually, and the number climbs with every new prescription written (Hershey FY2024). You can already read it in the incumbents. PepsiCo closed 2025 with organic volume and revenue down about 2% and operating profit off 7%, as North American shoppers pulled back from Frito-Lay, and it's now cutting prices on Lay's and Doritos and closing Frito-Lay plants to defend the business (Newsweek; Food Business News). Some of that is bargain-hunting shoppers. A growing piece of it is shoppers who just aren't hungry for the third bag.</p>
+
+<p>So what do you do with this if you're building or investing? If you're the incumbent, the volume-heavy, high-fixed-cost snack business is the most exposed thing you own, and the honest response is to reformulate toward protein and satiety, take pack sizes down before the market takes them down for you, and stop penciling the last decade's volume growth into the next decade's factories. If you're the startup, the open field is the companion economy: smaller portions built for a muted appetite, high-protein and high-fiber formats, muscle-preservation nutrition, supplements that ride alongside the drug instead of fighting it. And the same warning holds for everyone. Demand chained to a prescription can reverse as fast as it appeared, so build a balance sheet that survives the morning a slice of your growth turns out to have been rented too.</p>
+
+<h2>Alcohol, and the death of the treat.</h2>
+
+<p>Alcohol is getting caught in the same net, partly through a side effect nobody set out to create. In a randomized trial, patients on a GLP-1 were about 29% more likely to cut back on drinking, and broader reviews have found real drops in problem-drinking scores (dulaglutide RCT; Lancet eClinicalMedicine). In the UK, 39% of people on these drugs said they're drinking less (Drinkaware). The drug turns down the reward circuit, and a drink is a reward.</p>
+
+<p>The bigger move is psychological, and it stacks on top of a shift that was already underway. I've argued before that being sober-curious turned into an identity for Gen Z rather than a sacrifice. Now drop a medication that makes the drink itself less appealing on top of a culture that already made skipping it aspirational. The whole "treat yourself" reflex, the emotional machinery that sold indulgence for a hundred years, gets quieter from both directions. When wanting the treat is chemically dialed down and celebrating restraint is the cool posture, the categories that sold themselves as small rewards have a demand problem no marketing budget can outspend.</p>
+
+<h2>Insurance, and the take I'll put my name on.</h2>
+
+<p>My prediction cuts against the room. Over time, GLP-1 makes health insurance cheaper, not more expensive.</p>
+
+<p>Right now, it's doing the opposite, which is why most people stop reading their own logic too early. The drugs run about $766 a month net of rebates, they already eat roughly 20% of employer prescription spend, and that spend jumped about 50% in 2025 alone (Mercer; EBRI). Simulations put the premium hit from covering them at anywhere from 5.3% to 13.8%, which is why only about a quarter of employers cover them for weight loss at all, and some are already backing out (EBRI; Mercer). That pain is real and it's loud. It's also the near term, and the near term is not where this argument lives.</p>
+
+<p>What an insurer is pricing is future medical risk, and this is where the room has the story backward. In the SELECT trial, 17,604 people with heart disease and obesity but no diabetes were put on semaglutide, and their rate of major cardiovascular events, the heart attacks, the strokes, the cardiovascular deaths, fell by 20% (SELECT, NEJM 2023). Those are the claims that break a risk pool. One heart attack, with the stent and the rehab behind it, costs a health plan far more than the years of a drug that made the heart attack less likely in the first place. Now set that against the size of the exposed group: roughly 42% of privately insured adults under 65 already qualify under current FDA labels (Peterson-KFF). This isn't a sliver of the pool getting healthier. It's close to half of it.</p>
+
+<p>Run those two facts together and the arithmetic turns over. Fewer catastrophic claims eventually make for a cheaper pool, and a cheaper pool eventually makes for lower premiums. It takes years because of a timing mismatch: you pay the full drug cost today and collect the avoided heart attacks a decade out, and insurers are slow to re-rate a pool they haven't finished watching. Then the drug cost itself caves. India already sells the same molecule for about ₹1,290 a month now that the patent has fallen; the US branded shield holds until 2031, but when it breaks the biggest line item in this whole equation drops toward the floor, and the near-term premium drag goes with it. Cheaper drug, healthier pool, and lower risk. That's the case, and it's why the second country is about to run the same experiment on fast-forward.</p>
+
+<h2>India is the other lab, and the cheaper one.</h2>
+
+<p>Almost none of what I've described has reached India yet. It tends to run a few years behind the US on shifts like this, and that lag is usually where the smart money gets positioned, because you can watch the American tape and place your bet before the local version shows up. The early signal is already loud, though, and it's moving faster than the usual lag would predict. Eli Lilly launched Mounjaro in India in March 2025. By October it was the single best-selling drug in the country by value, ahead of the antibiotics that normally hold that spot, with about ₹233 crore (roughly $28M) in sales in its first six months (India Briefing; Business Today). India has an estimated 254 million people living with obesity, and its obesity-drug market is projected to grow from around ₹3,500 crore now toward ₹25,000 crore (roughly $3B) by 2030.</p>
+
+<p>Then comes the thing that makes India a different experiment and not just a slower one, which is price. Semaglutide's patent lapsed in India on March 20, 2026, and Sun, Dr. Reddy's, Zydus, Lupin and others put generics on the market almost overnight. Prices are dropping by more than half, in places by as much as 90%, with one brand going for about ₹1,290 a month, close to $15 (Pharmacy Business). In the US the same molecule sits behind roughly $1,000-a-month pricing and an insurance gate, with patent protection stretching to 2031. In India it costs about what a household spends on tea.</p>
+
+<p>That scrambles the usual order of adoption. Income normally decides who gets the new thing first, and in the US it still does, with usage skewing toward higher earners and the coasts. India could leapfrog on access precisely because the branded gate falls apart the second the generics arrive. And it lands at the most loaded moment imaginable. I've argued that India's rising middle class has finally got the money to want the real thing, the protein, the coffee, the branded indulgence its parents couldn't afford. Now a $15 injection shows up to tell that same newly comfortable consumer to want less, right as they earned the means to want more. Amul spent 70 years teaching a country to reach for packaged dairy. We're about to find out what happens when a cheap molecule starts trimming appetite the other way, in the one big market still climbing.</p>
+
+<h2>What stays.</h2>
+
+<p>Take all of it back to the start, and you land on the same split. Milk didn't last because it was true; it lasted because someone built the habit deep enough that it outlived the campaign that created it. The weight people drop on a rented drug doesn't last, because nothing was built underneath it, which is why two-thirds of it comes back inside a year.</p>
+
+<p>A big share of the demand destruction the market is busy pricing as permanent is rented, and rented demand comes back. The companies treating a 5% volume decline as the new floor are going to get surprised twice, first by how fast it dropped and then by how much of it returns when a wave of lifestyle users decides the injection wasn't worth the decade. The durable version of all of this, the healthier population and the lighter cart and the cheaper risk pool, only holds for the people who treated the drug as a bridge and then did the boring work of food and movement once they were across.</p>
+
+<p>You build it with what you eat and how you move, and that's the only version that stays yours. The rest is a lease, and the lease always comes due.</p>
+
+<h2>Sources</h2>
+
+<ul>
+<li>GLP-1 adoption (one in eight adults; 18% ever used): KFF Health Tracking Poll, Nov 2025</li>
+<li>One in five households with a current user (May 2026): PwC, GLP-1 consumer trends</li>
+<li>Grocery spend down 5.5% ($416/yr; $690/yr for higher earners); savory snacks down 11%: Food Dive; NJBIZ (Cornell/Numerator); Numerator GLP-1 Hub</li>
+<li>Weight regain (two-thirds regained one year after stopping; 17.3% loss): Wilding et al., STEP 1 extension, Diabetes Obesity &amp; Metabolism 2022</li>
+<li>GLP-1 eligibility (~42% of privately insured under-65 adults): Peterson-KFF Health System Tracker</li>
+<li>Alcohol reduction (29% more likely to cut; UK 39% drink less): Lancet eClinicalMedicine review; Drinkaware</li>
+<li>Cheesecake Factory / Skinnylicious / J.P. Morgan upgrade; Olive Garden portions: Fortune; AlphaPilot (J.P. Morgan)</li>
+<li>US food-at-home spending ($1.10T in 2025; $2.51T total food): USDA Economic Research Service</li>
+<li>Hershey annual net sales (~$11.2B, FY2024): Hershey Q4/full-year 2024 release (SEC)</li>
+<li>PepsiCo/Frito-Lay revenue pressure and price cuts: Newsweek; Food Business News</li>
+<li>US milk marketing history (American Dairy Association, 1940; Ozzie &amp; Harriet): Sentient Media; Milwaukee Magazine</li>
+<li>Amul / Operation Flood / Verghese Kurien: World Food Prize (1989 Kurien); Amul Dairy</li>
+<li>Mounjaro India (launched Mar 2025; top-selling drug by value Oct 2025; ₹233 crore in six months; 254M obese; market to ₹25,000 crore by 2030): India Briefing; Business Today</li>
+<li>Semaglutide India patent expiry (Mar 20, 2026; generics; ~₹1,290/month; US patent to 2031): Pharmacy Business</li>
+<li>SELECT trial (20% reduction in major cardiovascular events; 17,604 patients with obesity and CVD, no diabetes): Lincoff et al., NEJM 2023</li>
+<li>Employer premium impact (5.3%–13.8% from coverage; GLP-1s ~20% of drug spend, up ~50% in 2025; ~$766/month net; ~23% of employers cover): EBRI simulation; Mercer</li>
+</ul>`,
+  "after-running-on-premium-athletic": `<p>The odds of catching me running on Kite Beach in the morning are about three in seven, and for the last 12 months, I've been paying attention to what's on people's feet. Adidas Adizeros, a lot of them. Nike Vomero, the Asics. The brand I keep expecting to see more of and don't is On, which is odd, because the financials put it among the fastest-growing things in the whole category. Two years of watching the ground tell me one thing while the numbers tell me another, and at some point, you go with the numbers.</p>
+
+<p>On runs a 62.8% gross margin, against 41% at Nike, 51.6% at Adidas, and somewhere between 55% and 59% at Lululemon, which is the brand most people have in mind when they say premium athletic. On beats every one of them. You don't open a 22-point gap on Nike by building a marginally better running shoe; you open it by operating, more or less without anyone noticing, in a different business that happens to share the same shelf. The market has clocked it. On trades at 46x earnings on 30% revenue growth in 2025, a luxury multiple bolted onto an athletic brand, which makes the real question not whether On can keep growing but whether it can keep charging what it charges. The only company in a position to take that away is On.</p>
+
+<p>The growth costs money by design. Sales reached $3.35B in 2025. Gross profit outran the top line, and operating profit rose 78%, but operating expenses climbed 27% right behind it, and net income slipped 15%, most of that due to foreign exchange. Follow the money, and it leads to OPEX, the fastest-growing line in the whole P&L, and I am going there on purpose: On is spending its margin to buy two things it doesn't yet own outright, control of its own retail and awareness beyond the people who already run.</p>
+
+<h2>On built the brand in the right order</h2>
+
+<p>It started in 2010, founded by runners for runners, and went after the hardest audience first. Not the broad market, not awareness, but the marathon community, which isn't forgiving. I've been in enough of those conversations to know. The shoe holds up at the 32-kilometer mark, or it doesn't, and word travels fast either way. The founders spent years earning a reputation in that room before anyone outside it mattered, and recreational runners followed the way recreational runners always do, wanting whatever the serious people train in. They held the performance reputation while the customer base widened. Credibility built among obsessives spreads outward to casuals readily enough; it rarely runs the other way.</p>
+
+<p>Then Roger Federer came in as an investor and partner and pulled the brand sideways, into tennis, into aspiration, into people wearing On to a 9 a.m. He took a stake around 2019 after leaving Nike, two years before the IPO. His investments in On reportedly played a bigger role in him becoming a billionaire than his roughly $130M in career prize money as On's valuation grew from $7B to ~$13.4B in 2025. Iga Świątek, another tennis superstar, followed him in as a partner. On earned the community before it courted the crossover, which is the move most brands get backwards by reaching for the crossover while they still have nothing to cross over from.</p>
+
+<p>Think about who actually buys the shoe. The man who runs twice a week is buying the same model that the man who runs six days a week trains in, and he will never need the carbon plate in the sole. What he's buying is a small stake in the person he half-intends to become. That kind of pull takes a decade to build and about one bad season to spend. On's awareness sits near 30% globally against 90%+ for Nike and Adidas, and I'd argue that's the most underrated number in the story, because it's 60 points of road still in front of a company already doing $3B. Most brands that size have nobody left to convert.</p>
+
+<h2>Nobody else can afford to take the position</h2>
+
+<p>Nike lost more revenue last year than On has earned in any single year of its existence, falling from $51B to $46.3B, a $5B hole, while On was adding $770M. These aren't two companies running the same race at different speeds; they're moving in opposite directions. Nike is also fighting itself at the moment, working through CEO turnover, layoffs, and a reorganization, which leaves every retail relationship it lets slip and every athlete conversation it mishandles sitting on the table for someone else.</p>
+
+<p>Adidas can't reach for the premium spot either, for its own reasons. Its identity is welded to the mass market, to the Samba in every shop window, and Nike has the same problem one size up. Both companies built enormous distribution engines pointed at the broad middle of the market, and you can't push a genuinely premium brand through machinery engineered to move volume. Chasing On up-market would mean breaking the thing that made them, and no public company does that to itself on purpose, unless compelled to.</p>
+
+<h2>The comparison that matters is the Jordan Brand</h2>
+
+<p>Jordan does $7.3B a year off the legend who hasn't played a professional game in more than twenty years, better than twice On's entire revenue. Set that beside what On is sitting on. Federer is still woven through the sport, and through On's identity, in roughly the way Michael Jordan ran through Nike in the early 1990s, before the Jumpman turned into its own balance sheet.</p>
+
+<p>The striking part is that the Federer line barely exists yet. No RF mark, no standalone collection, none of the machinery that turned one retired athlete into a multibillion-dollar annuity. For a company reaching for the luxury position, that's probably the largest unbuilt asset in the category, and the open question is whether the groundwork is going in now or being left for later.</p>
+
+<p>The same engine is already visible in the collaborations, though most people read them as marketing rather than as a price anchor, which I believe is what they are. Stand the shoe next to Loewe often enough, and $350 stops looking like a stretch and starts looking like the going rate. Do that patiently across a few years, and a $200 shoe becomes a $350 shoe without losing the customer, because the customer's sense of what On should cost has shifted underneath them. Adidas can't run that play; the Samba won't let it.</p>
+
+<h2>What's left is mostly one decision about sequence</h2>
+
+<p>On has around 70 of its own stores. Nike has more than 900 as of 2025 but has been closing stores in 2026. On is 15 years old, so the buildout has barely started, which is more luck than judgment, because starting late means it gets to start clean. It's the same reason legacy companies struggle to go digital compared to one starting from scratch.</p>
+
+<p>Both channels are working. Wholesale hit $1.95B last year, up 28% and closing on $2B, and direct-to-consumer is at $1.4B, 42% of sales, growing at the same rate. Footwear wants to be bought in person regardless, since nobody commits to a shoe over a video call, and wholesale puts On on shelves everywhere without the capital of building owned retail city by city. It also keeps acquisition costs down in a way DTC can't touch without enormous overhead. For covering ground quickly, it's the right tool.</p>
+
+<p>The trouble is that the brand pays for the reach. The multiple On trades at assumes control over where the shoe sells and what stands beside it, and you don't have that on a department-store wall sharing space with 40 other logos. The flagship is where the brand is supposed to end up; wholesale is how it gets there, and the mistake would be letting wholesale settle into the permanent plan because it happens to be working, which could hurt the brand in the long term.</p>
+
+<p>APAC is the same decision in sharper relief. On is Swiss, and the Americas and EMEA still account for 83% of the business, while Asia-Pacific is $567M, growing 96% year over year, about 17% of revenue. A 96% growth rate doesn't last, and the window to plant a premium brand in a new market, before cheap distribution drags the price signal down with it, closes faster than most brand teams plan for. International wholesale is the sensible way in: prove the demand, build the community, then claw back margin and control once the market's real, with flagships behind it. That last step costs serious capital, which is exactly why the sequencing has to be settled now, while the wholesale business is still small enough to redirect.</p>
+
+<h2>The real risk is the one On does to itself</h2>
+
+<p>On is worth about $13.4B today. Adidas is worth $30B on 1.2x the revenue. On trades at 4x sales and Adidas at 1x, which tells you the market isn't pricing this year's results so much as the slope they imply.</p>
+
+<p>It's an unusual setup for a $3B brand: credibility with serious athletes, margins on loan from another industry, 60 points of awareness still untapped, and the one giant at scale tangled up in its own problems. People keep holding On up against Nike, and it's the wrong comparison, not because On is smaller but because the two are running different businesses.</p>
+
+<p>Brands rarely lose the premium position to a competitor. They give it away themselves, scaling distribution before the brand can carry the price, chasing the next ten million customers right past the first ten million who made them worth buying. On has handled that pressure well for 15 years, but for most of those years, there wasn't much pressure to handle, because the volume was too small to tempt anyone into a bad call. Adidas didn't dilute the Samba until it couldn't stop printing them. On hasn't yet had to turn down growth at a size where turning it down actually costs something.</p>
+
+<p>That's the test in front of it now, and it shows up with a lot more zeros attached.</p>`,
+
+  "first-90-days-product-manager": `<p>My product role at PMI isn't a typical one. I'm not shipping to end consumers. I'm building tools for ground sales teams who then go out and sell to customers, which makes it B2B2C. Common in retail, but it means my customer is two people at once: the rep in the field and the shopper they're trying to convert. Most PM frameworks don't account for that. I figured it out early, and it changed how I approached everything.</p>
+
+<p>That experience is what this piece is about. Not a generic 90-day playbook. A set of things I wish someone had told me before I started.</p>
+
+<p>Every new PM role starts the same way. You show up, get the Teams or Slack access, meet the team, and immediately feel like you're three months behind on everything. That feeling is normal. It's also a trap.</p>
+
+<p>The instinct is to move fast, show impact, prove you belong. Resist it.</p>
+
+<h2>Find the people who'll tell you the truth</h2>
+
+<p>The first thing I do in any new role is identify two or three people willing to teach me how the organization actually works, not how the org chart says it does. Every company has its own immune system. What's tolerated, what's sacred, what'll get you ignored for six months if you do it wrong. You can't read that in a deck or a strategy paper. Find the mentors early, ask dumb questions, and listen more than you talk.</p>
+
+<h2>Build relationships before you build anything else</h2>
+
+<p>Go deep with the teams you work with, whether that's engineering, design, or something else entirely. If your product touches customers directly, go deep with customer success. Then go one level further: get in front of the actual end user. Everything should flow backward from there. The question I make a point of asking everyone is what they wish the product did differently, what they think has worked, and where they'd take it in two years. You learn more in those conversations than in a month of Jira tickets.</p>
+
+<h2>Study the graveyard</h2>
+
+<p>Every product team has one. Features that got killed, bets that didn't ship, initiatives that died in committee, priorities that got backlogged indefinitely. Most new PMs never look at it. That's a mistake. The graveyard tells you more about the org's real constraints, political fault lines, and what the market actually rejected than any current roadmap will. Ask what got cut in the last two years and why. The answers are rarely "it wasn't a good idea."</p>
+
+<h2>Find the longest-tenured skeptic</h2>
+
+<p>Every team has someone who's been around long enough to watch three or four product owners cycle through with big plans and mixed results. Most people treat them as a blocker. They're actually a map. They carry institutional memory that no onboarding doc has. Buy them coffee. Ask what they've seen fail. They'll tell you things no one else will, because they've already decided they have nothing to prove.</p>
+
+<h2>Don't touch the vision. Not yet.</h2>
+
+<p>This is the one people get wrong most. A product you've inherited was built by people who understood it in ways you don't yet. Don't gut their logic in week three. The authority to change direction has to be earned and agreed on. Changing course without that buy-in doesn't make you visionary; it makes you the person who blew up something that was quietly working.</p>
+
+<h2>Be useful before you're strategic</h2>
+
+<p>In the first few months, your job is to unblock people. Help the teams you work with make tradeoff calls. Help engineering or IT prioritize. The framework I keep coming back to: if it reduces costs or drives revenue, fix it first, prove it with an A/B test, then scale. Not every ecosystem lets you run a clean test, so sometimes it's a focused pilot. Either way, understand the full customer journey before you touch anything. Changes that look clean in isolation can break things downstream.</p>
+
+<h2>Say no to something small, early</h2>
+
+<p>The instinct in a new role is to say yes to everything. Build goodwill, avoid conflict, keep everyone happy. But establishing early that you can hold a line, even on something minor, signals you have a point of view. People follow PMs who have one. Endless accommodation reads as someone who doesn't know what they think yet.</p>
+
+<h2>Use the product like a user</h2>
+
+<p>This sounds obvious. Most PMs skip it anyway. Sit down, open the product, and actually use it the way a customer would. Watch real users do the same. Nine times out of 10, what looks like a product problem is a people problem: a workflow, a missing explanation, a friction point nobody thought to name.</p>
+
+<h2>Not everything needs AI</h2>
+
+<p>If you work on a product used by real people, start with those people. Bring in AI use cases when they solve a specific, observed problem. Not because it's a good story for the roadmap. People first, technology second.</p>
+
+<p>The 90 days pass faster than you expect. The PMs who land well aren't the ones who moved fastest. They're the ones who listened longest and built enough trust that people let them move at all.</p>`,
+
   "after-the-category-quiet-reorganization-cpg": `<p>I've spent seven years watching consumer brands change, and I don't really trust either of the two stories people tell about CPG. The first is that incumbents are finished. Too slow, too risk-averse, outflanked by some founder with a Shopify store. The second is that incumbents are fine, because distribution and capital still decide who wins on a shelf. Neither's right. What's actually happening sits between them, and it's quieter than either camp wants to admit. The categories that defined this industry for the better part of a century are dissolving into each other. Most of the org charts inside the big CPGs haven't caught up. For scale: global CPG generates roughly $2T in annual revenue, comparable to Apple, Microsoft, Alphabet, Amazon, and Meta combined. A slow-moving giant where the categories underneath are quietly destabilizing.</p>
 
 <p>The CPGs navigating this well have figured out something that sounds obvious in retrospect but is honestly pretty hard to execute. Consumers don't organize their lives around product categories. They organize around identity, moments, and meaning. A Gen Z consumer who reaches for <strong>Olipop</strong> isn't buying soda. They're buying a gut-health-coded ritual that happens to be carbonated. On the same day, they might pick <strong>Celsius</strong> for energy, <strong>Liquid Death</strong> at the bar, <strong>Athletic Brewing</strong> at dinner, and <strong>Poppi</strong> on the way home, substituting freely across what the industry still calls four different categories. Previously, I spent some time in California and kept noticing the same thing at checkout: customers picking up a Poppi and a Liquid Death together, where ten years ago that same basket would've been a Pepsi and a Coke. The label is almost irrelevant to the purchase. Industry data shows functional beverages, a category that didn't even exist as a defined label five years ago, outpacing traditional carbonated soft drinks by three to five times. The labels CPG used to compete on (diet, regular, sparkling, energy) flatten into noise.</p>

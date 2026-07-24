@@ -3,20 +3,22 @@ import SubscribeForm from "./SubscribeForm";
 export default function Footer() {
     const year = new Date().getFullYear();
     return (
-        <footer
-            style={{
-                maxWidth: "1200px",
-                margin: "0 auto",
-                padding: "2rem 1.5rem",
-                textAlign: "center",
-                fontSize: "0.85rem",
-                color: "var(--muted)",
-                borderTop: "1px solid var(--card-border)",
-            }}
-        >
-            <SubscribeForm source="footer" />
-            <div>
-                © {year} Varun Sharma
+        <footer className="site-footer">
+            <div className="wrap site-footer__inner">
+                <SubscribeForm source="footer" />
+                <div className="site-footer__line">
+                    <span>© {year} Varun Sharma</span>
+                    <nav className="site-footer__links" aria-label="Footer">
+                        <a
+                            href="https://www.linkedin.com/in/varun810sharma/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            LinkedIn
+                        </a>
+                        <a href="mailto:varun_sharma@live.com">Email</a>
+                    </nav>
+                </div>
             </div>
         </footer>
     );

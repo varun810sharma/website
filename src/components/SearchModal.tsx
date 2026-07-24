@@ -1,34 +1,31 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { blogPosts } from "@/data/blog-posts";
 
-// Centralized search index for the static content
-const searchData = [
-    { id: "home", type: "Page", title: "Home", href: "/" },
-    { id: "exp", type: "Page", title: "Experience & Education", href: "/experience" },
-    { id: "proj", type: "Page", title: "Projects", href: "/projects" },
-    { id: "blog", type: "Page", title: "Blog", href: "/blog" },
+interface SearchEntry {
+    id: string;
+    type: string;
+    title: string;
+    href: string;
+    haystack: string;
+}
 
-    // Experience
-    { id: "exp1", type: "Experience", title: "Google - Data & AI Engineer II", href: "/experience" },
-    { id: "exp2", type: "Experience", title: "Mercedes-Benz R&D - Data/ML Engineer", href: "/experience" },
-    { id: "exp3", type: "Experience", title: "Infosys - Digital Specialist Engineer", href: "/experience" },
-
-    // Projects (from GitHub)
-    { id: "proj1", type: "Project", title: "VehicleDetector", href: "/projects" },
-    { id: "proj2", type: "Project", title: "twitter-sentiment-analysis", href: "/projects" },
-    { id: "proj3", type: "Project", title: "MaintainMe", href: "/projects" },
-    { id: "proj4", type: "Project", title: "cryptodash", href: "/projects" },
-    { id: "proj5", type: "Project", title: "LLM-Study", href: "/projects" },
-    { id: "proj6", type: "Project", title: "wallPexel_flutter_app", href: "/projects" },
-
-    // Blog Posts
-    { id: "blog1", type: "Blog", title: "Building MaintainMe: A Privacy-First, AI-Powered Calorie Tracker", href: "/blog/building-maintainme-privacy-first-calorie-tracker" },
-    { id: "blog2", type: "Blog", title: "Understanding Agentic AI and Google's Agent Development Kit (ADK)", href: "/blog/understanding-agentic-ai-and-google-adk" },
-    { id: "blog3", type: "Blog", title: "Building Scalable Data Models: Insights from Google London", href: "/blog/building-scalable-data-models-insights" },
-    { id: "blog4", type: "Blog", title: "Mastering SQL Optimization for Performance and Cost-Efficiency", href: "/blog/mastering-sql-optimization-performance-cost" },
+// Static pages plus every published article. Built once at module load.
+const searchIndex: SearchEntry[] = [
+    { id: "home", type: "Page", title: "Home", href: "/", haystack: "home varun sharma about" },
+    { id: "blog", type: "Page", title: "Articles", href: "/blog", haystack: "articles blog writing essays" },
+    { id: "newsletter", type: "Page", title: "Newsletter", href: "/newsletter", haystack: "newsletter subscribe email" },
+    ...blogPosts
+        .filter((post) => post.published)
+        .map((post) => ({
+            id: post.slug,
+            type: "Article",
+            title: post.title,
+            href: `/blog/${post.slug}`,
+            haystack: `${post.title} ${post.summary} ${post.tags.join(" ")}`.toLowerCase(),
+        })),
 ];
 
 interface SearchModalProps {
@@ -36,127 +33,142 @@ interface SearchModalProps {
     onClose: () => void;
 }
 
+/**
+ * Wrapper only. Mounting the panel fresh on each open is what resets its
+ * state, so the panel needs no reset effects.
+ */
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
+    if (!isOpen) return null;
+    return <SearchPanel onClose={onClose} />;
+}
+
+function SearchPanel({ onClose }: { onClose: () => void }) {
     const [query, setQuery] = useState("");
+    const [activeIndex, setActiveIndex] = useState(0);
     const inputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
 
-    // Focus input on open
-    useEffect(() => {
-        if (isOpen) {
-            setTimeout(() => inputRef.current?.focus(), 50);
-        } else {
-            setQuery("");
-        }
-    }, [isOpen]);
+    const results = useMemo(() => {
+        const q = query.trim().toLowerCase();
+        if (!q) return searchIndex.filter((entry) => entry.type === "Article");
+        return searchIndex.filter(
+            (entry) =>
+                entry.title.toLowerCase().includes(q) || entry.haystack.includes(q)
+        );
+    }, [query]);
 
-    // Handle Esc key to close
+    // Focus the field on mount and lock background scroll while open.
+    useEffect(() => {
+        inputRef.current?.focus();
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.body.style.overflow = previousOverflow;
+        };
+    }, []);
+
+    // Keyboard: Esc closes, arrows move, Enter opens.
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
+                onClose();
+                return;
+            }
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                setActiveIndex((i) => Math.min(i + 1, results.length - 1));
+            }
+            if (e.key === "ArrowUp") {
+                e.preventDefault();
+                setActiveIndex((i) => Math.max(i - 1, 0));
+            }
+            if (e.key === "Enter" && results[activeIndex]) {
+                router.push(results[activeIndex].href);
                 onClose();
             }
         };
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [onClose]);
+    }, [onClose, results, activeIndex, router]);
 
-    // Search results disabled
-    const results: typeof searchData = [];
-
-    const handleSelect = (href: string) => {
+    function go(href: string) {
         router.push(href);
         onClose();
-    };
+    }
 
     return (
-        <AnimatePresence>
-            {isOpen && (
-                <>
-                    {/* Backdrop */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.15 }}
-                        style={{
-                            position: "fixed",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backgroundColor: "rgba(0, 0, 0, 0.5)",
-                            backdropFilter: "blur(12px)",
-                            zIndex: 100,
-                        }}
-                        onClick={onClose}
-                    />
-
-                    {/* Modal */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: -20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                        transition={{ duration: 0.15, ease: "easeOut" }}
-                        style={{
-                            position: "fixed",
-                            top: "15%",
-                            left: "50%",
-                            marginLeft: "-300px", // Half of width to center
-                            width: "600px",
-                            maxWidth: "90vw", // For mobile
-                            backgroundColor: "var(--card-bg)",
-                            borderRadius: "12px",
-                            border: "1px solid var(--card-border)",
-                            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.2)",
-                            overflow: "hidden",
-                            zIndex: 101,
-                            display: "flex",
-                            flexDirection: "column",
-                        }}
-                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+        <>
+            <div className="search-overlay" onClick={onClose} />
+            <div
+                className="search-panel"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Search"
+            >
+                <div className="search-panel__input-row">
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="var(--meta)"
+                        strokeWidth="2"
+                        aria-hidden="true"
                     >
-                        {/* Search Input */}
-                        <div style={{ display: "flex", alignItems: "center", padding: "1rem", borderBottom: "1px solid var(--card-border)" }}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="2" style={{ marginRight: "0.75rem" }}>
-                                <circle cx="11" cy="11" r="8" />
-                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                            </svg>
-                            <input
-                                ref={inputRef}
-                                type="text"
-                                placeholder="Search projects, blogs, experience..."
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                autoComplete="off"
-                                style={{
-                                    flex: 1,
-                                    border: "none",
-                                    outline: "none",
-                                    background: "transparent",
-                                    fontSize: "1.05rem",
-                                    color: "var(--foreground)",
-                                }}
-                            />
-                            <button
-                                onClick={onClose}
-                                style={{
-                                    background: "transparent",
-                                    border: "none",
-                                    fontSize: "0.8rem",
-                                    color: "var(--muted)",
-                                    cursor: "pointer",
-                                    padding: "0.2rem 0.5rem",
-                                    borderRadius: "4px",
-                                }}
-                            >
-                                ESC
-                            </button>
-                        </div>
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input
+                        ref={inputRef}
+                        className="search-panel__input"
+                        type="text"
+                        placeholder="Search articles"
+                        value={query}
+                        onChange={(e) => {
+                            setQuery(e.target.value);
+                            setActiveIndex(0);
+                        }}
+                        autoComplete="off"
+                    />
+                    <button
+                        onClick={onClose}
+                        className="kbd"
+                        style={{ cursor: "pointer" }}
+                        aria-label="Close search"
+                    >
+                        esc
+                    </button>
+                </div>
 
-                    </motion.div>
-                </>
-            )}
-        </AnimatePresence>
+                {results.length > 0 ? (
+                    <ul className="search-panel__results">
+                        {results.map((entry, i) => (
+                            <li
+                                key={entry.id}
+                                className={
+                                    i === activeIndex
+                                        ? "search-panel__result search-panel__result--active"
+                                        : "search-panel__result"
+                                }
+                            >
+                                <a
+                                    href={entry.href}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        go(entry.href);
+                                    }}
+                                    onMouseEnter={() => setActiveIndex(i)}
+                                >
+                                    <span className="search-panel__type">{entry.type}</span>
+                                    <span>{entry.title}</span>
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className="search-panel__empty">No results for “{query}”.</p>
+                )}
+            </div>
+        </>
     );
 }

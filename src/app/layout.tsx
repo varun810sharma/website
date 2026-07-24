@@ -1,36 +1,25 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces, Space_Grotesk, Geist_Mono } from "next/font/google";
+import { Newsreader, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import DotMatrixCursor from "@/components/DotMatrixCursor";
-// src/app/layout.tsx
 
-const inter = Inter({
-  variable: "--font-inter",
+// Type system: Hanken Grotesk carries display, titles, and UI
+// (the Messina Sans role); Newsreader carries the reading body
+// (the Messina Modern role). Both variable, self-hosted, and
+// subset at build time via next/font.
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+  display: "swap",
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
   subsets: ["latin"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space",
-  subsets: ["latin"],
-});
-
-// Second Fraunces instance — drives all --font-pixel usages (nav, labels, tags).
-// Keeping the variable name lets every component pick it up without changes.
-const frauncesUI = Fraunces({
-  variable: "--font-pixel",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -62,6 +51,7 @@ export const metadata: Metadata = {
     description: "Builder. Operator. Endurance Athlete. Product Manager at the intersection of technology, consumer goods, and go-to-market.",
     images: ["/og/default.png"],
   },
+  authors: [{ name: "Varun Sharma" }],
 };
 
 export default function RootLayout({
@@ -71,21 +61,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <meta name="author" content="Varun Sharma"></meta>
       <body
-        className={`${inter.variable} ${fraunces.variable} ${spaceGrotesk.variable} ${frauncesUI.variable} ${geistMono.variable} antialiased`}
+        className={`${newsreader.variable} ${hanken.variable}`}
       >
-        <DotMatrixCursor />
         <Navigation />
-        <main
-          id="main-content"
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "0 1.5rem",
-            minHeight: "calc(100vh - 140px)",
-          }}
-        >
+        <main id="main-content" className="wrap" style={{ minHeight: "calc(100vh - 140px)" }}>
           {children}
         </main>
         <Footer />

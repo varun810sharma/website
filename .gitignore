@@ -48,3 +48,8 @@ next-env.d.ts
 
 # Local-only OG image source originals (crops in public/og are what deploys)
 blog-image-sources/
+
+# Local agent tooling (not part of the site)
+.agents/
+.claude/
+skills-lock.json

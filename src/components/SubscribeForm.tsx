@@ -42,62 +42,18 @@ export default function SubscribeForm({
 
     if (status === "done") {
         return (
-            <div
-                style={{
-                    maxWidth: "420px",
-                    margin: "0 auto 1.5rem",
-                    textAlign: "center",
-                    fontSize: "0.9rem",
-                    color: "var(--muted)",
-                }}
-            >
-                Thanks — check your inbox for a confirmation link.
-            </div>
+            <p className="subscribe__note" style={{ maxWidth: "26rem" }}>
+                Thanks. Check your inbox for a confirmation link.
+            </p>
         );
     }
 
     return (
-        <div
-            style={{
-                maxWidth: "420px",
-                margin: "0 auto 1.5rem",
-                textAlign: "center",
-            }}
-        >
-            {heading && (
-                <div
-                    style={{
-                        fontSize: "0.95rem",
-                        fontWeight: 600,
-                        color: "var(--foreground, #1a1a1a)",
-                        marginBottom: "0.25rem",
-                    }}
-                >
-                    {heading}
-                </div>
-            )}
-            {description && (
-                <div
-                    style={{
-                        fontSize: "0.85rem",
-                        color: "var(--muted)",
-                        marginBottom: "0.75rem",
-                        lineHeight: 1.5,
-                    }}
-                >
-                    {description}
-                </div>
-            )}
+        <div style={{ maxWidth: "26rem" }}>
+            {heading && <h2 className="subscribe__heading">{heading}</h2>}
+            {description && <p className="subscribe__note">{description}</p>}
 
-            <form
-                onSubmit={onSubmit}
-                style={{
-                    display: "flex",
-                    gap: "0.5rem",
-                    justifyContent: "center",
-                    flexWrap: "wrap",
-                }}
-            >
+            <form onSubmit={onSubmit} className="subscribe__row">
                 {/* Honeypot: hidden from real users, bots fill it. */}
                 <input
                     type="text"
@@ -117,37 +73,16 @@ export default function SubscribeForm({
                 />
 
                 <input
+                    className="input"
                     type="email"
                     required
                     placeholder="you@example.com"
+                    aria-label="Email address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={status === "submitting"}
-                    style={{
-                        flex: "1 1 220px",
-                        padding: "0.55rem 0.75rem",
-                        borderRadius: "6px",
-                        border: "1px solid var(--card-border)",
-                        background: "var(--background, #ffffff)",
-                        color: "var(--foreground, #1a1a1a)",
-                        fontSize: "0.9rem",
-                        minWidth: 0,
-                    }}
                 />
-                <button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    style={{
-                        padding: "0.55rem 1rem",
-                        borderRadius: "6px",
-                        border: "1px solid var(--card-border)",
-                        background: "var(--foreground, #1a1a1a)",
-                        color: "var(--background, #ffffff)",
-                        fontSize: "0.9rem",
-                        fontWeight: 600,
-                        cursor: status === "submitting" ? "wait" : "pointer",
-                    }}
-                >
+                <button className="btn" type="submit" disabled={status === "submitting"}>
                     {status === "submitting" ? "…" : "Subscribe"}
                 </button>
             </form>

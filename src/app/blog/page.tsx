@@ -1,130 +1,72 @@
-"use client";
-
-import PageTransition from "@/components/PageTransition";
-import { motion } from "framer-motion";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { blogPosts } from "@/data/blog-posts";
+import { thumbSrc } from "@/lib/images";
 
-
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-        },
-    },
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5 },
-    },
+export const metadata: Metadata = {
+    title: "Articles | Varun Sharma",
+    description:
+        "Essays on consumer goods, product, and go-to-market by Varun Sharma.",
+    alternates: { canonical: "https://varunsharma.online/blog" },
 };
 
 export default function BlogPage() {
+    const posts = blogPosts.filter((post) => post.published);
+
     return (
-        <PageTransition>
-            <div style={{ paddingTop: "3rem", paddingBottom: "4rem" }}>
-                {/* Header */}
-                <div style={{ marginBottom: "2.5rem" }}>
-                    <div className="section-label">Blog</div>
-                    <h1
-                        style={{
-                            fontSize: "clamp(2rem, 4vw, 2.8rem)",
-                            fontWeight: 800,
-                            lineHeight: 1.2,
-                        }}
-                    >
-                        Thoughts, learnings, and stories.
-                    </h1>
+        <div style={{ paddingTop: "var(--s7)", paddingBottom: "var(--s7)" }}>
+            <header style={{ marginBottom: "var(--s6)", maxWidth: "40rem" }}>
+                <h1 style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", marginBottom: "var(--s3)" }}>
+                    Articles
+                </h1>
+                <p style={{ color: "var(--ink-soft)", margin: 0 }}>
+                    Long form thinking on brands, markets, product, and strategy.
+                </p>
+            </header>
+
+            <hr className="rule rule--signal" />
+
+            <div className="section">
+                <div>
+                    <span className="section-label">All articles</span>
                 </div>
 
-                {/* Blog Posts */}
-                <motion.div
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "1.25rem",
-                        maxWidth: "800px",
-                    }}
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                >
-                    {blogPosts.filter((post) => post.published).map((post) => (
-                        <motion.div
-                            key={post.slug}
-                            variants={itemVariants}
-                        >
-                            <Link
-                                href={`/blog/${post.slug}`}
-                                style={{ textDecoration: "none", color: "inherit" }}
-                            >
-                                <div className="blog-card blog-card--list">
-                                    {/* Thumbnail (left on desktop) */}
-                                    {post.image && (
-                                        // eslint-disable-next-line @next/next/no-img-element
-                                        <img
-                                            className="blog-card__thumb"
-                                            src={post.image}
-                                            alt={post.title}
-                                        />
-                                    )}
-
-                                    {/* Text (right on desktop) */}
-                                    <div className="blog-card__body">
-                                        {/* Meta */}
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: "0.75rem",
-                                                marginBottom: "0.5rem",
-                                                fontSize: "0.8rem",
-                                                color: "var(--muted)",
-                                            }}
-                                        >
-                                            <span>{post.date}</span>
-                                            <span>·</span>
-                                            <span>{post.readTime}</span>
-                                        </div>
-
-                                        {/* Title */}
-                                        <h2
-                                            style={{
-                                                fontSize: "1.25rem",
-                                                fontWeight: 700,
-                                                marginBottom: "0.4rem",
-                                                color: "var(--foreground)",
-                                            }}
-                                        >
-                                            {post.title}
-                                        </h2>
-
-                                        {/* Summary (small subtext, clamped) */}
-                                        <p className="blog-card__summary">
-                                            {post.summary}
-                                        </p>
-
-                                        {/* Tags */}
-                                        <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
-                                            {post.tags.map((tag) => (
-                                                <span key={tag} className="tech-tag">
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
+                <ul className="toc">
+                    {posts.map((post) => (
+                        <li key={post.slug} className="toc__item">
+                            <Link href={`/blog/${post.slug}`} className="toc__link">
+                                <span className="caps-signal toc__date">{post.date}</span>
+                                <div style={{ minWidth: 0 }}>
+                                    <h2 className="toc__title">{post.title}</h2>
+                                    <p className="toc__dek">{post.summary}</p>
+                                    <div className="toc__tags">
+                                        <span className="meta-line">{post.readTime}</span>
+                                        {post.tags.map((tag) => (
+                                            <span key={tag} className="tag">
+                                                {tag}
+                                            </span>
+                                        ))}
                                     </div>
                                 </div>
+                                {thumbSrc(post.image) ? (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                        className="toc__thumb"
+                                        src={thumbSrc(post.image)}
+                                        alt=""
+                                        loading="lazy"
+                                        decoding="async"
+                                        width={360}
+                                        height={189}
+                                    />
+                                ) : (
+                                    <span />
+                                )}
                             </Link>
-                        </motion.div>
+                        </li>
                     ))}
-                </motion.div>
+                </ul>
             </div>
-        </PageTransition>
+        </div>
     );
 }

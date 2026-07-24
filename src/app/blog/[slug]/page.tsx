@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import PageTransition from "@/components/PageTransition";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts } from "@/data/blog-posts";
 import { getBlogContent } from "@/lib/blog-content";
+import { heroSrc } from "@/lib/images";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -41,6 +41,20 @@ function buildDescription(summary: string | undefined, html: string): string {
     const clipped = text.slice(0, 160);
     const lastSpace = clipped.lastIndexOf(" ");
     return `${clipped.slice(0, lastSpace > 0 ? lastSpace : 160).trim()}…`;
+}
+
+// Convert the display date ("Jul 2026") to a full ISO 8601 date for structured
+// data. Posts only carry month precision, so we anchor to the first of the
+// month: Google expects a complete date and silently ignores partial ones.
+// Falls back to the raw string if the month is unrecognized.
+function isoDate(display: string): string {
+    const months: Record<string, string> = {
+        Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06",
+        Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12",
+    };
+    const match = display.match(/^([A-Za-z]{3})\s+(\d{4})$/);
+    if (!match || !months[match[1]]) return display;
+    return `${match[2]}-${months[match[1]]}-01`;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -86,102 +100,121 @@ export async function generateStaticParams() {
 
 export default async function BlogPostPage({ params }: Props) {
     const { slug } = await params;
-    const post = blogPosts.find((p) => p.slug === slug);
+    const published = blogPosts.filter((p) => p.published);
+    const index = published.findIndex((p) => p.slug === slug);
+    const post = index >= 0 ? published[index] : undefined;
 
-    if (!post || !post.published) {
+    if (!post) {
         notFound();
     }
 
     const htmlContent = getBlogContent(slug);
+    // Posts are ordered newest first in blog-posts.ts.
+    const newer = index > 0 ? published[index - 1] : undefined;
+    const older = index < published.length - 1 ? published[index + 1] : undefined;
+
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: post.title,
+        description: buildDescription(post.summary, htmlContent),
+        datePublished: isoDate(post.date),
+        url: `${SITE_URL}/blog/${post.slug}`,
+        image: `${SITE_URL}${post.image ?? DEFAULT_OG_IMAGE}`,
+        author: {
+            "@type": "Person",
+            name: "Varun Sharma",
+            url: SITE_URL,
+        },
+        publisher: {
+            "@type": "Person",
+            name: "Varun Sharma",
+            url: SITE_URL,
+        },
+        keywords: post.tags.join(", "),
+        mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    };
 
     return (
-        <PageTransition>
-            <div style={{ paddingTop: "3rem", paddingBottom: "4rem", maxWidth: "720px", margin: "0 auto" }}>
-                {/* Back link */}
-                <Link
-                    href="/blog"
-                    style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "0.4rem",
-                        fontSize: "0.85rem",
-                        color: "var(--muted)",
-                        marginBottom: "2rem",
-                        textDecoration: "none",
-                    }}
-                >
-                    <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                    >
-                        <polyline points="15,18 9,12 15,6" />
-                    </svg>
-                    Back to Blog
-                </Link>
+        <article style={{ paddingTop: "var(--s7)", paddingBottom: "var(--s7)" }}>
+            <script
+                type="application/ld+json"
+                // Escape "<" so a title or summary containing "</script>" can
+                // never terminate the block early.
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+                }}
+            />
 
-                {/* Post Header */}
-                <div style={{ marginBottom: "3rem" }}>
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.75rem",
-                            marginBottom: "0.75rem",
-                            fontSize: "0.85rem",
-                            color: "var(--muted)",
-                        }}
-                    >
-                        <span>{post.date}</span>
-                        <span>·</span>
-                        <span>{post.readTime}</span>
-                    </div>
-                    <h1
-                        style={{
-                            fontSize: "clamp(2rem, 5vw, 3rem)",
-                            fontWeight: 900,
-                            lineHeight: 1.1,
-                            marginBottom: "1.5rem",
-                            letterSpacing: "-0.02em"
-                        }}
-                    >
-                        {post.title}
-                    </h1>
-                    <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                        {post.tags.map(tag => (
-                            <span key={tag} className="tech-tag">
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
-                </div>
+            {/* Header: title and dek, centered column */}
+            <header className="article-header">
+                <h1 className="article-header__title">{post.title}</h1>
+                <p className="article-header__dek">{post.summary}</p>
+            </header>
 
-                {/* Hero image */}
-                {post.image && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                        src={post.image}
-                        alt={post.title}
-                        style={{
-                            width: "100%",
-                            aspectRatio: "1200 / 630",
-                            objectFit: "cover",
-                            borderRadius: "8px",
-                            border: "1px solid var(--border)",
-                            marginBottom: "3rem",
-                        }}
-                    />
-                )}
+            <hr className="rule rule--signal" />
 
-                {/* Post Body (Rendered HTML) */}
-                <article
+            {/* Hero image. Decorative: the OG card restates the title, which
+                the h1 above already announces. */}
+            {heroSrc(post.image) && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                    className="article-hero-img"
+                    src={heroSrc(post.image)}
+                    alt=""
+                    width={1472}
+                    height={773}
+                    fetchPriority="high"
+                    style={{ marginTop: "var(--s6)" }}
+                />
+            )}
+
+            {/* Meta column + body */}
+            <div className="article-layout">
+                <aside className="article-aside">
+                    <span className="caps-signal">{post.date}</span>
+                    <span className="meta-line">{post.readTime}</span>
+                    {post.tags.map((tag) => (
+                        <span key={tag} className="tag">
+                            {tag}
+                        </span>
+                    ))}
+                </aside>
+
+                <div
                     className="blog-prose"
                     dangerouslySetInnerHTML={{ __html: htmlContent }}
                 />
             </div>
-        </PageTransition>
+
+            {/* Previous / next */}
+            {(newer || older) && (
+                <nav
+                    className="article-nav"
+                    aria-label="More articles"
+                    style={{ maxWidth: "46rem", margin: "var(--s7) auto 0" }}
+                >
+                    <div>
+                        {newer && (
+                            <Link href={`/blog/${newer.slug}`} className="article-nav__link">
+                                <span className="caps-signal article-nav__label">Newer</span>
+                                <span className="article-nav__title">{newer.title}</span>
+                            </Link>
+                        )}
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                        {older && (
+                            <Link
+                                href={`/blog/${older.slug}`}
+                                className="article-nav__link"
+                            >
+                                <span className="caps-signal article-nav__label">Older</span>
+                                <span className="article-nav__title">{older.title}</span>
+                            </Link>
+                        )}
+                    </div>
+                </nav>
+            )}
+        </article>
     );
 }
