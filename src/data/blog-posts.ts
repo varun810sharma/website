@@ -15,6 +15,15 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
     {
+        slug: "the-safe-bet-music-discovery",
+        title: "The Safe Bet: How Music Stopped Paying to Find Great New Art",
+        date: "Aug 2026",
+        readTime: "10 min read",
+        summary: "Labels spent a record $8.1 billion finding new artists in 2024, and America listened to less of what that money produced. On Spotify's Discovery Mode as an undisclosed ad business, why 253 million tracks broke the economics of being heard, and why I think Netflix merges with Spotify within five years.",
+        tags: ["Music Industry", "Spotify", "M&A", "Strategy"],
+        published: true,
+    },
+    {
         slug: "rented-restraint-glp1",
         title: "Rented Restraint: GLP-1 and the Businesses Built on Wanting More",
         date: "Jul 2026",
