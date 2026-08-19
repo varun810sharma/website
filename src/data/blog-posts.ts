@@ -22,6 +22,7 @@ export const blogPosts: BlogPost[] = [
         summary: "Labels spent a record $8.1 billion finding new artists in 2024, and America listened to less of what that money produced. On Spotify's Discovery Mode as an undisclosed ad business, why 253 million tracks broke the economics of being heard, and why I think Netflix merges with Spotify within five years.",
         tags: ["Music Industry", "Spotify", "M&A", "Strategy"],
         published: true,
+        image: "/og/the-safe-bet-music-discovery.png",
     },
     {
         slug: "rented-restraint-glp1",
