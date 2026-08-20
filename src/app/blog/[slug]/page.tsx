@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts } from "@/data/blog-posts";
 import { getBlogContent } from "@/lib/blog-content";
-import { heroSrc } from "@/lib/images";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -153,21 +152,6 @@ export default async function BlogPostPage({ params }: Props) {
             </header>
 
             <hr className="rule rule--signal" />
-
-            {/* Hero image. Decorative: the OG card restates the title, which
-                the h1 above already announces. */}
-            {heroSrc(post.image) && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                    className="article-hero-img"
-                    src={heroSrc(post.image)}
-                    alt=""
-                    width={1472}
-                    height={773}
-                    fetchPriority="high"
-                    style={{ marginTop: "var(--s6)" }}
-                />
-            )}
 
             {/* Meta column + body */}
             <div className="article-layout">

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { blogPosts } from "@/data/blog-posts";
-import { thumbSrc } from "@/lib/images";
 
 export const metadata: Metadata = {
     title: "Articles | Varun Sharma",
@@ -48,20 +47,6 @@ export default function BlogPage() {
                                         ))}
                                     </div>
                                 </div>
-                                {thumbSrc(post.image) ? (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img
-                                        className="toc__thumb"
-                                        src={thumbSrc(post.image)}
-                                        alt=""
-                                        loading="lazy"
-                                        decoding="async"
-                                        width={360}
-                                        height={189}
-                                    />
-                                ) : (
-                                    <span />
-                                )}
                             </Link>
                         </li>
                     ))}
