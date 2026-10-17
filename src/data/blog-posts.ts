@@ -15,6 +15,15 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
     {
+        slug: "after-the-gym-mirror-to-finish-line",
+        title: "After the Gym: How Fitness Moved From the Mirror to the Finish Line",
+        date: "Oct 2026",
+        readTime: "10 min read",
+        summary: "For 40 years the gym decided what being fit meant, and it's quietly been losing that argument. On why health moved to the top of my list, why the gym failed the people inside it, why run clubs are a loneliness story before they're a fitness story, how a finish time became the new credential.",
+        tags: ["Fitness", "Community", "Consumer Trends", "Strategy"],
+        published: true,
+    },
+    {
         slug: "the-safe-bet-music-discovery",
         title: "The Safe Bet: How Music Stopped Paying to Find Great New Art",
         date: "Aug 2026",
